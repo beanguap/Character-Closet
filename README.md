@@ -7,7 +7,6 @@
 
 The Outfit Identification and Customization App is a cutting-edge full-stack web application designed to help users identify and customize the outfits of their favorite characters from TV shows, movies, games, and more. Using AI-driven image recognition, the app detects specific fashion items and suggests similar options available online. Users can create and manage a personalized wardrobe, mix and match styles, and save their favorite looks—all within an intuitive and responsive interface.
 
-![Outfit App Interface](https://raw.githubusercontent.com/yourusername/outfit-app/master/src/assets/OutfitAppCover.jpg)
 
 ## 🎨 Features
 
