@@ -1,13 +1,13 @@
+import os
 import idx2numpy
 import numpy as np
-import os
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 import matplotlib.pyplot as plt
 
 # Define the path to the data folder
-data_dir = 'data/fashion_mnist/'
+data_dir = 'scripts/data/fashion_mnist'
 
 # Load the training and testing data
 train_images_path = os.path.join(data_dir, 'train-images-idx3-ubyte')
@@ -29,7 +29,7 @@ x_test = x_test / 255.0
 x_train = x_train.reshape((-1, 28, 28, 1))
 x_test = x_test.reshape((-1, 28, 28, 1))
 
-# Define the model architecture (as before)
+# Define the model architecture
 model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
     MaxPooling2D((2, 2)),
@@ -37,7 +37,7 @@ model = Sequential([
     MaxPooling2D((2, 2)),
     Flatten(),
     Dense(128, activation='relu'),
-    Dense(10, activation='softmax')  # 10 output classes for Fashion-MNIST
+    Dense(10, activation='softmax')
 ])
 
 # Compile the model
@@ -56,5 +56,16 @@ plt.ylabel('Accuracy')
 plt.legend()
 plt.show()
 
+# Ensure the models directory exists
+model_dir = 'scripts/models'
+os.makedirs(model_dir, exist_ok=True)
+
 # Save the model
-model.save('fashion_model.h5')
+model_path = os.path.join(model_dir, 'fashion_model.h5')
+model.save(model_path)
+
+# Confirm the model was saved
+if os.path.exists(model_path):
+    print("Model saved successfully!")
+else:
+    print("Model not saved.")
