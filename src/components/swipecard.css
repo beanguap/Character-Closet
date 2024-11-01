@@ -1,85 +1,97 @@
 /* src/styles/SwipeCard.css */
 :root {
-    --primary-lavender: #E6E6FA;
-    --deep-lavender: #9B8ACB;
-    --light-lavender: #F3F0FF;
-    --lavender-gray: #C5C6D0;
-    --dark-lavender: #694ED8;
-  }
-  
-  .swipe-card-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--light-lavender);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .swipe-card {
-    width: 100%;
-    height: 85vh;
-    background-color: white;
-    border-radius: 25px 25px 0 0;
-    padding: 2rem;
-    box-shadow: 0 -4px 20px rgba(107, 78, 216, 0.1);
-    position: relative;
-    touch-action: none;
-    transition: transform 0.3s ease-out;
-  }
-  
-  .title {
-    color: var(--dark-lavender);
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-  }
-  
-  .wardrobe-carousel {
-    width: 100%;
-    height: 60%;
-    background-color: var(--light-lavender);
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--lavender-gray);
-  }
-  
-  .swipe-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--deep-lavender);
-  }
-  
-  .chevron-icon {
-    animation: bounce 1.5s infinite;
-    color: var(--deep-lavender);
-  }
-  
-  @keyframes bounce {
-    0%, 100% {
+  --primary-lavender: #E6E6FA;
+  --deep-lavender: #9B8ACB;
+  --light-lavender: #F3F0FF;
+  --lavender-gray: #C5C6D0;
+  --dark-lavender: #694ED8;
+  --shadow-color: rgba(107, 78, 216, 0.1);
+  --highlight-color: rgba(255, 255, 255, 0.7);
+}
+
+.swipe-card-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--light-lavender);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.swipe-card {
+  width: 100%;
+  height: 85vh;
+  background-color: white;
+  border-radius: 25px 25px 0 0;
+  padding: 2rem;
+  box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--highlight-color);
+  position: relative;
+  touch-action: none;
+  transition: transform 0.3s ease-out;
+}
+
+.title {
+  color: var(--dark-lavender);
+  text-align: center;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title img {
+  width: 450px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 0.5rem; /* Space between image and text */
+  margin-bottom: 2rem;
+}
+
+.wardrobe-carousel {
+  width: 100%;
+  height: 60%;
+  background-color: var(--light-lavender);
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lavender-gray);
+  box-shadow: inset 8px 8px 16px var(--shadow-color), inset -8px -8px 16px var(--highlight-color);
+}
+
+.swipe-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--deep-lavender);
+}
+
+.chevron-icon {
+  animation: bounce 1.5s infinite;
+  color: var(--deep-lavender);
+}
+
+@keyframes bounce {
+  0%, 100% {
       transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
   }
-  
-  /* Add touch indicator on mobile */
-  @media (max-width: 768px) {
-    .swipe-card::after {
+  50% {
+      transform: translateY(-10px);
+  }
+}
+
+/* Add touch indicator on mobile */
+@media (max-width: 768px) {
+  .swipe-card::after {
       content: '';
       position: absolute;
       top: 12px;
@@ -89,5 +101,6 @@
       height: 4px;
       background-color: var(--lavender-gray);
       border-radius: 2px;
-    }
+      box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--highlight-color);
   }
+}

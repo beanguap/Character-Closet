@@ -44,7 +44,9 @@ const SwipeCard = ({ onComplete }) => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <h1 className="title">Welcome to Character Closet</h1>
+        <h1 className="title">
+          <img src="src/assets/Character-Closet.png" alt="Character Closet" />
+        </h1>
         <div className="wardrobe-carousel">Wardrobe Carousel</div>
         <div className="swipe-indicator">
           <p>Pull up to get started</p>
