@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Crop, X } from 'lucide-react';
-import { Alert, AlertDescription } from '@radix-ui/react-alert';
+import { Alert, Description } from '@radix-ui/react-alert-dialog';
 import { Slider } from '@radix-ui/react-slider';
 import { useDropzone } from 'react-dropzone';
 
@@ -254,7 +254,7 @@ const OutfitDetection = () => {
       {/* Error Display */}
       {error && (
         <Alert variant="destructive">
-          <AlertDescription>{error}</AlertDescription>
+          <Description>{error}</Description>
         </Alert>
       )}
 

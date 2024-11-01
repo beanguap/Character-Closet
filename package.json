@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.1.2",
     "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.7",
     "git": "^0.1.5",
