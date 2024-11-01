@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Crop, X } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Slider } from '@/components/ui/slider';
+import { Alert, AlertDescription } from '@radix-ui/react-alert';
+import { Slider } from '@radix-ui/react-slider';
 import { useDropzone } from 'react-dropzone';
 
 const CONFIDENCE_THRESHOLD = 0.5;

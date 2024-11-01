@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import OutfitDetection from '../components/OutfitDetection';
 import { detectOutfit } from '../config/api';
 
