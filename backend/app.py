@@ -11,7 +11,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)
+# Enable CORS for your React frontend URL
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
 # Configuration
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
@@ -22,7 +23,11 @@ app.config['MODEL_PATH'] = 'models/fashion_model.h5'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Initialize detector
-detector = OutfitDetector(app.config['MODEL_PATH'])
+try:
+    detector = OutfitDetector(app.config['MODEL_PATH'])
+except Exception as e:
+    logger.error(f"Failed to initialize detector: {str(e)}")
+    raise
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -70,4 +75,4 @@ def detect_outfit():
         return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
