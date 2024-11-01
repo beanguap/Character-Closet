@@ -1,10 +1,12 @@
-import  { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Crop, X } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { useDropzone } from 'react-dropzone';
 
 const CONFIDENCE_THRESHOLD = 0.5;
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
 const OutfitDetection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -15,98 +17,94 @@ const OutfitDetection = () => {
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [confidenceThreshold, setConfidenceThreshold] = useState(CONFIDENCE_THRESHOLD);
   const [cropMode, setCropMode] = useState(false);
-  const [croppedArea, setCroppedArea] = useState(null);
 
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const imageRef = useRef(null);
 
-  // Handle file upload
-  const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      setError('Please upload an image file');
+  // File upload handler
+  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+    if (rejectedFiles.length > 0) {
+      const { message } = rejectedFiles[0].errors[0];
+      setError(message);
       return;
     }
+
+    const file = acceptedFiles[0];
+    if (!file) return;
 
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result);
       setSelectedImage(file);
+      setError(null);
+      setCropMode(false);
     };
+    reader.onerror = () => setError('Error reading file');
     reader.readAsDataURL(file);
-    setError(null);
-    setCropMode(false);
-  };
+  }, []);
 
-  // Camera handling
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/*': ALLOWED_TYPES
+    },
+    maxSize: MAX_FILE_SIZE,
+    multiple: false
+  });
+
+  // Camera handling functions
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (streamRef.current) {
+        stopCamera();
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'environment' } 
+      });
       videoRef.current.srcObject = stream;
       streamRef.current = stream;
       setIsCameraActive(true);
       setError(null);
     } catch (err) {
-      setError('Unable to access camera');
-      console.error(err);
+      const errorMessage = err.name === 'NotAllowedError' 
+        ? 'Camera access denied. Please grant permission.'
+        : 'Unable to access camera. Please try again.';
+      setError(errorMessage);
+      console.error('Camera error:', err);
     }
   };
 
-  const stopCamera = () => {
+  const stopCamera = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop());
-      setIsCameraActive(false);
+      streamRef.current = null;
     }
-  };
+    setIsCameraActive(false);
+  }, []);
 
-  const captureImage = () => {
+  const captureImage = useCallback(() => {
+    if (!videoRef.current) return;
+
     const video = videoRef.current;
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    
-    canvas.toBlob((blob) => {
-      setSelectedImage(blob);
-      setPreview(canvas.toDataURL('image/jpeg'));
-      stopCamera();
-    }, 'image/jpeg');
-  };
-
-  // Image cropping
-  const handleCrop = () => {
-    if (!imageRef.current || !croppedArea) return;
-
-    const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     
-    canvas.width = croppedArea.width;
-    canvas.height = croppedArea.height;
+    ctx.drawImage(video, 0, 0);
     
-    ctx.drawImage(
-      imageRef.current,
-      croppedArea.x,
-      croppedArea.y,
-      croppedArea.width,
-      croppedArea.height,
-      0,
-      0,
-      croppedArea.width,
-      croppedArea.height
-    );
-
     canvas.toBlob((blob) => {
-      setSelectedImage(blob);
+      const file = new File([blob], 'camera-capture.jpg', { type: 'image/jpeg' });
+      setSelectedImage(file);
       setPreview(canvas.toDataURL('image/jpeg'));
-      setCropMode(false);
-    }, 'image/jpeg');
-  };
+      stopCamera();
+    }, 'image/jpeg', 0.9);
+  }, [stopCamera]);
 
-  // Process image through model
-  const processImage = async () => {
+  // Image processing function
+  const processImage = async (retryCount = 0) => {
     if (!selectedImage) return;
 
     setLoading(true);
@@ -115,120 +113,123 @@ const OutfitDetection = () => {
     try {
       const formData = new FormData();
       formData.append('image', selectedImage);
-      formData.append('confidenceThreshold', confidenceThreshold);
+      formData.append('confidenceThreshold', confidenceThreshold.toString());
 
-      const response = await fetch('/api/detect-outfit', {
+      const response = await fetch('http://localhost:5000/api/detect-outfit', {
         method: 'POST',
         body: formData,
       });
 
-      if (!response.ok) throw new Error('Failed to process image');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to process image');
+      }
 
       const result = await response.json();
       setDetections(result.items.filter(item => item.confidence >= confidenceThreshold));
     } catch (err) {
-      setError('Error processing image. Please try again.');
+      console.error('Processing error:', err);
+      
+      if (retryCount < 2) {
+        setTimeout(() => processImage(retryCount + 1), Math.pow(2, retryCount) * 1000);
+      } else {
+        setError('Error processing image. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
+  // Cleanup
+  useState(() => {
+    return () => {
+      stopCamera();
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [stopCamera, preview]);
+
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
+    <div className="outfit-detection-container">
       {/* Camera Section */}
       {isCameraActive ? (
-        <div className="relative">
+        <div className="camera-container">
           <video 
             ref={videoRef} 
             autoPlay 
             playsInline
-            className="w-full rounded-lg"
+            className="camera-video"
           />
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4">
-            <Button
+          <div className="camera-controls">
+            <button
               onClick={captureImage}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="button button-primary"
             >
-              <Camera className="w-4 h-4 mr-2" />
+              <Camera className="button-icon" />
               Capture
-            </Button>
-            <Button
+            </button>
+            <button
               onClick={stopCamera}
-              variant="destructive"
+              className="button button-destructive"
             >
-              <X className="w-4 h-4 mr-2" />
+              <X className="button-icon" />
               Cancel
-            </Button>
+            </button>
           </div>
         </div>
       ) : (
         /* Upload Section */
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-            id="image-upload"
-          />
-          <div className="flex flex-col items-center gap-4">
-            <label
-              htmlFor="image-upload"
-              className="flex flex-col items-center cursor-pointer"
+        <div {...getRootProps()} className="upload-zone">
+          <input {...getInputProps()} />
+          <div className="upload-content">
+            <Upload className="upload-icon" />
+            <span className="upload-text">
+              {isDragActive 
+                ? "Drop the image here" 
+                : "Click to upload or drag and drop"}
+            </span>
+            <span className="upload-subtext">
+              PNG, JPG up to 10MB
+            </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                startCamera();
+              }}
+              className="button button-outline"
             >
-              <Upload className="w-12 h-12 text-gray-400 mb-4" />
-              <span className="text-sm text-gray-500">
-                Click to upload or drag and drop
-              </span>
-              <span className="text-xs text-gray-400 mt-1">
-                PNG, JPG up to 10MB
-              </span>
-            </label>
-            <Button
-              onClick={startCamera}
-              variant="outline"
-              className="mt-4"
-            >
-              <Camera className="w-4 h-4 mr-2" />
+              <Camera className="button-icon" />
               Use Camera
-            </Button>
+            </button>
           </div>
         </div>
       )}
 
       {/* Preview and Controls */}
       {preview && !isCameraActive && (
-        <div className="space-y-4">
-          <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+        <div className="preview-container">
+          <div className="preview-image-container">
             <img
               ref={imageRef}
               src={preview}
               alt="Preview"
-              className="object-contain w-full h-full"
+              className="preview-image"
             />
           </div>
           
-          <div className="flex gap-4">
-            <Button
+          <div className="preview-controls">
+            <button
               onClick={() => setCropMode(!cropMode)}
-              variant="outline"
+              className="button button-outline"
             >
-              <Crop className="w-4 h-4 mr-2" />
+              <Crop className="button-icon" />
               {cropMode ? 'Cancel Crop' : 'Crop Image'}
-            </Button>
-            
-            {cropMode && (
-              <Button
-                onClick={handleCrop}
-                className="bg-blue-600 hover:bg-blue-700"
-              >
-                Apply Crop
-              </Button>
-            )}
+            </button>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">
+          <div className="slider-container">
+            <label className="slider-label">
               Confidence Threshold: {confidenceThreshold}
             </label>
             <Slider
@@ -237,17 +238,16 @@ const OutfitDetection = () => {
               min={0}
               max={1}
               step={0.1}
-              className="w-full"
             />
           </div>
 
-          <Button
-            onClick={processImage}
+          <button
+            onClick={() => processImage()}
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="button button-primary button-full"
           >
             {loading ? 'Processing...' : 'Detect Outfit'}
-          </Button>
+          </button>
         </div>
       )}
 
@@ -260,16 +260,16 @@ const OutfitDetection = () => {
 
       {/* Results Display */}
       {detections.length > 0 && (
-        <div className="bg-gray-50 rounded-lg p-4">
-          <h3 className="text-lg font-semibold mb-4">Detected Items:</h3>
-          <div className="space-y-3">
+        <div className="results-container">
+          <h3 className="results-title">Detected Items:</h3>
+          <div className="results-list">
             {detections.map((item, index) => (
               <div 
                 key={index}
-                className="flex items-center justify-between p-3 bg-white rounded-md shadow-sm"
+                className="result-item"
               >
-                <span className="font-medium">{item.label}</span>
-                <span className="text-sm text-gray-500">
+                <span className="result-label">{item.label}</span>
+                <span className="result-confidence">
                   {(item.confidence * 100).toFixed(1)}% confidence
                 </span>
               </div>
