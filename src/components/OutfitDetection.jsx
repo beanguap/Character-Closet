@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Crop, X } from 'lucide-react';
-import { Alert, Description } from '@radix-ui/react-alert-dialog';
-import { Slider } from '@radix-ui/react-slider';
+import { Alert, AlertTitle, Slider } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 
 const CONFIDENCE_THRESHOLD = 0.5;
@@ -46,9 +45,7 @@ const OutfitDetection = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      'image/*': ALLOWED_TYPES
-    },
+    accept: ALLOWED_TYPES,
     maxSize: MAX_FILE_SIZE,
     multiple: false
   });
@@ -233,8 +230,8 @@ const OutfitDetection = () => {
               Confidence Threshold: {confidenceThreshold}
             </label>
             <Slider
-              value={[confidenceThreshold]}
-              onValueChange={([value]) => setConfidenceThreshold(value)}
+              value={confidenceThreshold}
+              onChange={(event, value) => setConfidenceThreshold(value)}
               min={0}
               max={1}
               step={0.1}
@@ -253,8 +250,9 @@ const OutfitDetection = () => {
 
       {/* Error Display */}
       {error && (
-        <Alert variant="destructive">
-          <Description>{error}</Description>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
         </Alert>
       )}
 
