@@ -9,6 +9,15 @@
   --highlight-color: rgba(255, 255, 255, 0.7);
 }
 
+.swipe-card {
+  transition: transform 0.3s ease;
+}
+
+.swipe-card.dragging {
+  transition: none;
+}
+
+
 .swipe-card-container {
   position: fixed;
   top: 0;
@@ -44,17 +53,38 @@
 }
 
 .title img {
-  width: 450px; /* Adjust the width as needed */
+  width: 800px; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
   margin-right: 0.5rem; /* Space between image and text */
-  margin-bottom: 2rem;
+  padding-top: 2rem;
+  
+}
+
+.title img {
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease-in-out;
+}
+
+.title img:hover {
+  animation: none;
+  transform: scale(1.2);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .wardrobe-carousel {
   width: 100%;
-  height: 60%;
+  height: 40%;
   background-color: var(--light-lavender);
   border-radius: 15px;
+  margin-top: 6rem;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;

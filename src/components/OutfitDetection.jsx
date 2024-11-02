@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Upload, Camera, Crop, X } from 'lucide-react';
 import { Alert, AlertTitle, Slider } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
+import './OutfitDetection.css';
 
 
 
