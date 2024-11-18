@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { 
   Paper, 
   Grid, 
@@ -15,6 +15,7 @@ import {
 import { useDropzone } from 'react-dropzone';
 import { Upload, Camera } from 'lucide-react';
 import './OutfitDetection.css';
+import { detectOutfit } from '../config/api';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -24,8 +25,9 @@ const MediaBoard = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [error, setError] = useState(null);
+  const [detectedItems, setDetectedItems] = useState([]);
 
-  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles, rejectedFiles) => {
     if (rejectedFiles?.length > 0) {
       const { message } = rejectedFiles[0].errors[0];
       setError(message);
@@ -36,9 +38,17 @@ const MediaBoard = () => {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       setSelectedImage(reader.result);
       setError(null);
+
+      try {
+        const results = await detectOutfit(file);
+        setDetectedItems(results.items);
+      } catch (err) {
+        setError('Failed to detect outfit. Please try again.');
+        console.error('Outfit detection error:', err);
+      }
     };
     reader.onerror = () => setError('Error reading file');
     reader.readAsDataURL(file);
@@ -46,17 +56,10 @@ const MediaBoard = () => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: ALLOWED_TYPES,
+    accept: ALLOWED_TYPES.join(','),
     maxSize: MAX_FILE_SIZE,
     multiple: false
   });
-
-  const categories = [
-    { id: 'outfits', title: 'Outfits' },
-    { id: 'shows', title: 'Shows' },
-    { id: 'movies', title: 'Movies' },
-    { id: 'games', title: 'Games' }
-  ];
 
   return (
     <Box sx={{ p: 3, height: '100vh', maxHeight: 800 }}>
@@ -128,52 +131,28 @@ const MediaBoard = () => {
             }}
           >
             <Grid container spacing={2} sx={{ height: '100%' }}>
-              {categories.map(category => (
-                <Grid item xs={6} key={category.id}>
+              {detectedItems.map((item, index) => (
+                <Grid item xs={6} key={index}>
                   <Card
-                    onClick={() => setActiveCategory(category.id)}
                     sx={{
                       height: '100%',
                       cursor: 'pointer',
                       border: '1px solid',
-                      borderColor: activeCategory === category.id 
-                        ? 'primary.main' 
-                        : 'grey.300',
-                      bgcolor: activeCategory === category.id 
-                        ? 'primary.light' 
-                        : 'background.paper',
+                      borderColor: 'grey.300',
+                      bgcolor: 'background.paper',
                       '&:hover': {
                         borderColor: 'primary.main',
-                        bgcolor: activeCategory === category.id 
-                          ? 'primary.light'
-                          : 'grey.50'
+                        bgcolor: 'grey.50'
                       }
                     }}
                   >
                     <CardContent>
                       <Typography variant="h6" gutterBottom>
-                        {category.title}
+                        {item.label}
                       </Typography>
-                      <Box 
-                        sx={{ 
-                          height: 200,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center'
-                        }}
-                      >
-                        {selectedImage && activeCategory === category.id && (
-                          <img
-                            src={selectedImage}
-                            alt={`${category.title} preview`}
-                            style={{
-                              maxHeight: '100%',
-                              maxWidth: '100%',
-                              objectFit: 'contain'
-                            }}
-                          />
-                        )}
-                      </Box>
+                      <Typography variant="body2" color="textSecondary">
+                        Confidence: {item.confidence.toFixed(2)}
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -206,7 +185,7 @@ const MediaBoard = () => {
             {activeCategory && (
               <Box sx={{ mt: 2 }}>
                 <Typography variant="body2" color="textSecondary">
-                  Selected category: {categories.find(c => c.id === activeCategory)?.title}
+                  Selected category: {activeCategory}
                 </Typography>
                 {/* Results content will go here */}
               </Box>

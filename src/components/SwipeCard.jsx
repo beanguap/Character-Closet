@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const SwipeCard = ({ onComplete }) => {
   const navigate = useNavigate();
@@ -11,31 +12,6 @@ const SwipeCard = ({ onComplete }) => {
   const lastTouchY = useRef(0);
   const velocityY = useRef(0);
   const lastTimeStamp = useRef(0);
-
-  
-
-  // Handle velocity-based animations
-  useEffect(() => {
-    let animationFrame;
-    
-    const animate = () => {
-      if (isDragging) {
-        lastTimeStamp.current = Date.now();
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    if (isDragging) {
-      lastTimeStamp.current = Date.now();
-      animate();
-    }
-
-    return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [isDragging]);
 
   const handleStart = (clientY) => {
     setStartY(clientY);
@@ -83,6 +59,7 @@ const SwipeCard = ({ onComplete }) => {
       onComplete();
       // Navigate to dashboard after animation
       setTimeout(() => {
+        console.log('Navigating to dashboard');
         navigate('/dashboard');
       }, 300);
     } else {
@@ -161,6 +138,10 @@ const SwipeCard = ({ onComplete }) => {
       </div>
     </div>
   );
+};
+
+SwipeCard.propTypes = {
+  onComplete: PropTypes.func.isRequired,
 };
 
 export default SwipeCard;
