@@ -1,0 +1,139 @@
+/* dashboard.css */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Ensures widths are calculated consistently */
+}
+
+:root {
+  /* Color Variables */
+  --primary-lavender: #E6E6FA;
+  --deep-lavender: #9B8ACB;
+  --light-lavender: #F3F0FF;
+  --lavender-gray: #C5C6D0;
+  --dark-lavender: #694ED8;
+
+  /* Shadow Colors (slightly intensified for a more pronounced clay look) */
+  --shadow-color: rgba(107, 78, 216, 0.2);
+  --highlight-color: rgba(255, 255, 255, 0.7);
+
+  /* Increase shadow sizes to give that "puffier" clay effect */
+  --outer-shadow: 12px 12px 24px var(--shadow-color),
+                  -12px -12px 24px var(--highlight-color);
+  --inner-shadow: inset 6px 6px 12px var(--shadow-color),
+                  inset -6px -6px 12px var(--highlight-color);
+
+  --transition-speed: 0.3s;
+}
+
+body {
+  /* Subtle gradient background for a more dimensional feel */
+  background: radial-gradient(
+    circle at top left, 
+    var(--light-lavender), 
+    var(--primary-lavender)
+  );
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Outer container for the dashboard */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full viewport height */
+  padding: 1rem; /* Add padding around the edges */
+}
+
+/* Top navigation / Title Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--primary-lavender);
+  box-shadow: var(--outer-shadow);
+  margin-bottom: 1rem; /* Add margin below the top bar */
+  border-radius: 2rem; /* Increase border-radius for more rounded edges */
+}
+
+.app-title {
+  font-size: 1.5rem;
+  color: var(--dark-lavender);
+  font-weight: 700;
+}
+
+.menu-icon {
+  color: var(--dark-lavender);
+  cursor: pointer;
+}
+
+/* Main content area */
+.dashboard-content {
+  flex: 1;
+  padding: 1rem;
+  /* Use auto-fit or auto-fill so cards wrap onto new lines as space allows */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem; /* The gap between grid items */
+  justify-items: center;
+}
+
+/* Clay card style */
+.clay-card {
+  /* Subtle gradient for the clay effect */
+  background: linear-gradient(
+    145deg,
+    var(--light-lavender),
+    var(--primary-lavender)
+  );
+  border-radius: 2rem; /* Increase border-radius for more rounded edges */
+  padding: 1rem;
+  box-shadow: var(--outer-shadow);
+  /* Let the card naturally size itself based on content */
+  width: 100%;
+  max-width: 200px; /* Remove or adjust if you need more/fewer columns */
+  /* Remove fixed height; use min-height if you want a minimum size */
+  min-height: 150px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  transition:
+    box-shadow var(--transition-speed),
+    transform var(--transition-speed);
+}
+
+.clay-card:hover {
+  box-shadow: var(--inner-shadow);
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+/* Bottom navigation bar */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--primary-lavender);
+  box-shadow: var(--outer-shadow);
+  margin-top: 1rem; /* Add margin above the bottom nav */
+  border-radius: 2rem; /* Increase border-radius for more rounded edges */
+}
+
+/* Icons in bottom nav */
+.nav-icon {
+  color: var(--dark-lavender); /* Fix the typo from 'var (--dark-lavender)' */
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform var(--transition-speed);
+}
+
+.nav-icon:hover {
+  transform: scale(1.1);
+}

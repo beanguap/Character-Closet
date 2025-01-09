@@ -1,5 +1,5 @@
+/* src/components/OutfitDetection/OutfitDetection.css */
 :root {
-  /* Color System */
   --primary: #694ED8;
   --primary-light: #9B8ACB;
   --background: #F3F0FF;
@@ -7,22 +7,13 @@
   --text-primary: #2D3748;
   --text-secondary: #C5C6D0;
   --border-color: #9B8ACB;
-  
-  /* Neumorphic Shadows */
   --shadow-light: rgba(255, 255, 255, 0.7);
   --shadow-dark: rgba(107, 78, 216, 0.1);
-  --outer-shadow: 6px 6px 12px var(--shadow-dark),
-                  -6px -6px 12px var(--shadow-light);
-  --inner-shadow: inset 4px 4px 8px var(--shadow-dark),
-                  inset -4px -4px 8px var(--shadow-light);
-  --pressed-shadow: inset 2px 2px 5px var(--shadow-dark),
-                   inset -2px -2px 5px var(--shadow-light);
-  
-  /* Transitions */
-  --transition-speed: 0.2s;
+  --outer-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  --inner-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  --transition-speed: 0.3s;
 }
 
-/* Base Styles */
 body {
   background-color: var(--background);
   color: var(--text-primary);
@@ -31,14 +22,12 @@ body {
   padding: 0;
 }
 
-/* Main Container */
 .media-board {
   padding: 1.5rem;
   min-height: 100vh;
   max-height: 800px;
 }
 
-/* Grid Layout */
 .grid-container {
   display: grid;
   grid-template-columns: 300px 1fr 300px;
@@ -48,7 +37,6 @@ body {
   margin: 0 auto;
 }
 
-/* Panel Base Styles */
 .panel {
   background: var(--surface);
   border-radius: 1rem;
@@ -56,7 +44,6 @@ body {
   box-shadow: var(--outer-shadow);
 }
 
-/* Left Panel - Upload & Scanner */
 .upload-zone {
   border: 2px dashed var(--border-color);
   border-radius: 0.5rem;
@@ -93,7 +80,6 @@ body {
   box-shadow: var(--inner-shadow);
 }
 
-/* Middle Panel - Categories */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -117,7 +103,7 @@ body {
 .category-card.active {
   border-color: var(--primary);
   background: var(--primary-light);
-  box-shadow: var(--pressed-shadow);
+  box-shadow: var(--inner-shadow);
 }
 
 .category-content {
@@ -144,7 +130,6 @@ body {
   object-fit: contain;
 }
 
-/* Right Panel - Results */
 .results-panel {
   display: flex;
   flex-direction: column;
@@ -159,7 +144,6 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Alert Styles */
 .alert {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -174,25 +158,21 @@ body {
   margin-bottom: 0.25rem;
 }
 
-/* Utility Classes */
 .text-secondary {
   color: var(--text-secondary);
   font-size: 0.875rem;
 }
 
-/* File Input */
 input[type="file"] {
   display: none;
 }
 
-/* Divider */
 .divider {
   height: 1px;
   background: var(--border-color);
   margin: 1rem 0;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 1200px) {
   .grid-container {
     grid-template-columns: 250px 1fr 250px;

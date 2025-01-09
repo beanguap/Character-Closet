@@ -1,0 +1,38 @@
+/* src/pages/Home/home.css */
+:root {
+    --primary-lavender: #E6E6FA;
+    --deep-lavender: #9B8ACB;
+    --light-lavender: #F3F0FF;
+    --lavender-gray: #C5C6D0;
+    --dark-lavender: #694ED8;
+    --shadow-color: rgba(107, 78, 216, 0.1);
+    --highlight-color: rgba(255, 255, 255, 0.7);
+    --outer-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--highlight-color);
+    --inner-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--highlight-color);
+    --transition-speed: 0.3s;
+  }
+  
+  .home-container {
+    padding: 2rem;
+    background: var(--light-lavender);
+    border-radius: 1rem;
+    box-shadow: var(--outer-shadow);
+    transition: all var(--transition-speed);
+  }
+  
+  .home-container:hover {
+    box-shadow: var(--inner-shadow);
+  }
+  
+  .home-title {
+    color: var(--dark-lavender);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .home-description {
+    color: var(--lavender-gray);
+    text-align: center;
+    font-size: 1.2rem;
+  }
