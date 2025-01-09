@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SwipeCard from '../../components/SwipeCard/SwipeCard';
-import '../components/swipecard.css';
+import '../../components/SwipeCard/swipecard.css';
 
 const Home = () => {
   const [showWelcome, setShowWelcome] = useState(true);

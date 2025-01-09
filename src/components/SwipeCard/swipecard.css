@@ -53,11 +53,11 @@
 }
 
 .title img {
-  width: 800px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-right: 0.5rem; /* Space between image and text */
+  width: 100%; /* Use relative units */
+  max-width: 800px; /* Maintain aspect ratio */
+  height: auto;
+  margin-right: 0.5rem;
   padding-top: 2rem;
-  
 }
 
 .title img {
@@ -132,5 +132,9 @@
       background-color: var(--lavender-gray);
       border-radius: 2px;
       box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--highlight-color);
+  }
+
+  .title img {
+    max-width: 100%; /* Adjust for smaller screens */
   }
 }

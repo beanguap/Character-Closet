@@ -17,6 +17,9 @@ import { Upload, Camera } from 'lucide-react';
 import './OutfitDetection.css';
 import { detectOutfit } from '../config/api';
 
+// Create a web worker for image processing
+const worker = new Worker(new URL('./imageProcessor.js', import.meta.url));
+
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
@@ -26,6 +29,24 @@ const MediaBoard = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [error, setError] = useState(null);
   const [detectedItems, setDetectedItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleDetection = async (file) => {
+    setIsLoading(true);
+    setError(null);
+
+    worker.postMessage(file);
+    worker.onmessage = (event) => {
+      const results = event.data;
+      setDetectedItems(results.items);
+      setIsLoading(false);
+    };
+
+    worker.onerror = (error) => {
+      setError('Failed to detect outfit');
+      setIsLoading(false);
+    };
+  };
 
   const onDrop = useCallback(async (acceptedFiles, rejectedFiles) => {
     if (rejectedFiles?.length > 0) {
@@ -43,8 +64,7 @@ const MediaBoard = () => {
       setError(null);
 
       try {
-        const results = await detectOutfit(file);
-        setDetectedItems(results.items);
+        await handleDetection(file);
       } catch (err) {
         setError('Failed to detect outfit. Please try again.');
         console.error('Outfit detection error:', err);
@@ -190,6 +210,7 @@ const MediaBoard = () => {
                 {/* Results content will go here */}
               </Box>
             )}
+            <img src="src/assets/Character-Closet.png" alt="Character Closet" loading="lazy" />
           </Paper>
         </Grid>
       </Grid>
