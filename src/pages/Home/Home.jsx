@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SwipeCard from '../components/SwipeCard';
+import SwipeCard from '../../components/SwipeCard/SwipeCard';
 import '../components/swipecard.css';
 
 const Home = () => {

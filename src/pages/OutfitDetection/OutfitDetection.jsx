@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import OutfitDetection from '../components/OutfitDetection';
-import { detectOutfit } from '../config/api';
+import OutfitDetection from '../../components/OutfitDetection';
+import { detectOutfit } from '../../config/api';
 
 const OutfitDetectionPage = () => {
   const [detectedItems, setDetectedItems] = useState([]);
