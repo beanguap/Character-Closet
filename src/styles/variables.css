@@ -1,0 +1,52 @@
+/* variables.css */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Ensures widths are calculated consistently */
+}
+
+:root {
+  /* Color Variables */
+  --primary-lavender: #E6E6FA;
+  --deep-lavender: #9B8ACB;
+  --light-lavender: #F3F0FF;
+  --lavender-gray: #C5C6D0;
+  --dark-lavender: #694ED8;
+
+  /* Shadow Colors (slightly intensified for a more pronounced clay look) */
+  --shadow-color: rgba(107, 78, 216, 0.2);
+  --highlight-color: rgba(255, 255, 255, 0.7);
+
+  /* Increase shadow sizes to give that "puffier" clay effect */
+  --outer-shadow: 16px 16px 32px var(--shadow-color),
+                  -8px -8px 16px var(--highlight-color);
+  --inner-shadow: inset 8px 8px 16px var(--shadow-color),
+                  inset -4px -4px 8px var(--highlight-color);
+
+  --transition-speed: 0.3s;
+  --hover-scale: 1.03;
+
+  /* Typography */
+  --heading-large: 2rem;
+  --heading-medium: 1.5rem;
+  --body-text: 1rem;
+  --caption-text: 0.875rem;
+
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 1.5rem;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+
+  /* Subtle gradient background for a more dimensional feel */
+  background: radial-gradient(
+    circle at top left,
+    var(--light-lavender),
+    var(--primary-lavender)
+  );
+}

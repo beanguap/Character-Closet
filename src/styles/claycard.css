@@ -1,0 +1,43 @@
+/* ClayCard.css */
+.clay-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2)); /* Subtle gradient */
+  border-radius: 20rem; /* Increase border-radius for more rounded edges */
+  padding: var(--spacing-large);
+  box-shadow: var(--outer-shadow);
+  backdrop-filter: blur(10px); /* Apply blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Apply blur effect for Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Border to enhance glass effect */
+  
+  width: 100%;
+  max-width: 280px; /* Adjust max-width */
+  min-height: 200px; /* Optional minimum height */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-medium);
+  
+  transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+}
+
+.clay-card:hover {
+  box-shadow: var(--inner-shadow);
+  transform: translateY(-2px) scale(var(--hover-scale)); /* Add gentle scale up */
+  cursor: pointer;
+}
+
+.clay-card .card-title {
+  font-size: var(--heading-medium); /* Adjust title font size */
+  font-weight: 700; /* Heavier weight for titles */
+  color: var(--deep-lavender); /* Use a pastel hue for titles */
+  margin-bottom: var(--spacing-small);
+}
+
+.clay-card .card-body {
+  font-size: var(--body-text); /* Slightly reduce body text font size */
+  font-weight: 400; /* Lighter weight for body text */
+  color: var(--lavender-gray); /* Neutral color for body text */
+  line-height: 1.5; /* Increase line-height for better readability */
+}

@@ -2,7 +2,9 @@
 import React from 'react';
 import { Typography, IconButton } from '@mui/material';
 import { User } from 'lucide-react';
-import das
+
+import '/src/styles/variables.css'; // Ensure we have access to the color variables
+import './TopBar.css';     // Specific styles for top bar
 
 const TopBar = () => {
   return (
