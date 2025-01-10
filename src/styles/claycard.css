@@ -1,51 +1,71 @@
 /* claycard.css */
-
 .clay-card {
   position: relative;
-  width: 280px;    /* match SVG dimensions */
-  height: 200px;   /* match SVG dimensions */
+  width: 280px;
+  height: 200px;
 
-  /* Clay background or whatever styling you want */
-  background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(230,230,250,0.2));
-  border-radius: 20px;  /* same 20px corners */
-  box-shadow: 10px 10px 20px rgba(107, 78, 216, 0.1),
-              -10px -10px 20px rgba(255, 255, 255, 0.7);
-  overflow: hidden;     /* ensures children don’t spill out */
-  margin: 1rem;
-  cursor: pointer;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(230, 230, 250, 0.2)
+  );
+  box-shadow: var(--outer-shadow);
+  border-radius: 20px; 
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .clay-card:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: inset 6px 6px 12px rgba(107, 78, 216, 0.1),
-              inset -6px -6px 12px rgba(255, 255, 255, 0.7);
+  box-shadow: var(--inner-shadow);
+  cursor: pointer;
 }
 
-/* The card text container */
 .card-content {
-  position: relative;  /* ensures text is above the background */
-  z-index: 1;
+  position: relative;
+  z-index: 1; 
   padding: 1rem;
   text-align: center;
 }
 
-/* Position the SVG exactly over the card */
+/* SVG fills the entire card area */
 .laser-svg {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;  /* draw it above the background, behind text if z-index < 1 */
+  width: 280px;
+  height: 200px;
+  z-index: 0;
 }
 
+/* Laser path animation */
 .laser-svg path {
-  /* Hide the stroke by default using dash offsets */
-  stroke-dasharray: 926;   /* approximate perimeter for 280x200 with 20px corners */
-  stroke-dashoffset: 926;  /* fully "hidden" at the start */
-  transition: stroke-dashoffset 3s linear; 
+  fill: none;
+  stroke: white;         
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  /* 
+     Dash: 120px visible “head”, 
+     Gap: 806px invisible “tail”
+     => total 926, matching the shape’s perimeter.
+  */
+  stroke-dasharray: 120 806;
+
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+  
+  /* Animate dashoffset from 0 to -926 in 4s for a loop with no stutter */
+  animation: laserLoop 4s linear infinite;
 }
 
-/* On hover, animate the dashoffset from 926 -> 0, making the stroke "travel" the entire path */
-.clay-card:hover .laser-svg path {
-  stroke-dashoffset: 0;
+/* Keyframes: travels around once, then repeats seamlessly */
+@keyframes laserLoop {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -926;
+  }
 }
+

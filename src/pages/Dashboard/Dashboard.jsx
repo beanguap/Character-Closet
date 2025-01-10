@@ -2,9 +2,9 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
-import '../../styles/variables.css'; 
+import '../../styles/variables.css';
 import '../../styles/layout.css';    
-import '../../styles/claycard.css';  // We'll place the SVG + dash animation here
+import '../../styles/claycard.css';  // We'll place the laser path animation here
 
 import TopBar from '../../components/TopBar/TopBar.jsx';
 import BottomNav from '../../components/BottomNav/BottomNav.jsx';
@@ -13,8 +13,8 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <TopBar />
+
       <main className="dashboard-content">
-        
         {/* CARD 1 */}
         <div className="clay-card">
           <div className="card-content">
@@ -23,11 +23,8 @@ const Dashboard = () => {
               Process images for fashion item recognition.
             </Typography>
           </div>
-          {/* SVG laser outline */}
           <svg
             className="laser-svg"
-            width="280"
-            height="200"
             viewBox="0 0 280 200"
             fill="none"
           >
@@ -42,10 +39,6 @@ const Dashboard = () => {
                  V 20
                  A 20,20 0 0 1 20,0
                  Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -60,8 +53,6 @@ const Dashboard = () => {
           </div>
           <svg
             className="laser-svg"
-            width="280"
-            height="200"
             viewBox="0 0 280 200"
             fill="none"
           >
@@ -76,10 +67,6 @@ const Dashboard = () => {
                  V 20
                  A 20,20 0 0 1 20,0
                  Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -94,8 +81,6 @@ const Dashboard = () => {
           </div>
           <svg
             className="laser-svg"
-            width="280"
-            height="200"
             viewBox="0 0 280 200"
             fill="none"
           >
@@ -110,10 +95,6 @@ const Dashboard = () => {
                  V 20
                  A 20,20 0 0 1 20,0
                  Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -128,8 +109,6 @@ const Dashboard = () => {
           </div>
           <svg
             className="laser-svg"
-            width="280"
-            height="200"
             viewBox="0 0 280 200"
             fill="none"
           >
@@ -144,15 +123,11 @@ const Dashboard = () => {
                  V 20
                  A 20,20 0 0 1 20,0
                  Z"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
             />
           </svg>
         </div>
-
       </main>
+
       <BottomNav />
     </div>
   );
