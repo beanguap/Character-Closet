@@ -1,43 +1,51 @@
-/* ClayCard.css */
+/* claycard.css */
+
 .clay-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2)); /* Subtle gradient */
-  border-radius: 20rem; /* Increase border-radius for more rounded edges */
-  padding: var(--spacing-large);
-  box-shadow: var(--outer-shadow);
-  backdrop-filter: blur(10px); /* Apply blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Apply blur effect for Safari */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Border to enhance glass effect */
-  
-  width: 100%;
-  max-width: 280px; /* Adjust max-width */
-  min-height: 200px; /* Optional minimum height */
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: var(--spacing-medium);
-  
-  transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+  position: relative;
+  width: 280px;    /* match SVG dimensions */
+  height: 200px;   /* match SVG dimensions */
+
+  /* Clay background or whatever styling you want */
+  background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(230,230,250,0.2));
+  border-radius: 20px;  /* same 20px corners */
+  box-shadow: 10px 10px 20px rgba(107, 78, 216, 0.1),
+              -10px -10px 20px rgba(255, 255, 255, 0.7);
+  overflow: hidden;     /* ensures children don’t spill out */
+  margin: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .clay-card:hover {
-  box-shadow: var(--inner-shadow);
-  transform: translateY(-2px) scale(var(--hover-scale)); /* Add gentle scale up */
-  cursor: pointer;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: inset 6px 6px 12px rgba(107, 78, 216, 0.1),
+              inset -6px -6px 12px rgba(255, 255, 255, 0.7);
 }
 
-.clay-card .card-title {
-  font-size: var(--heading-medium); /* Adjust title font size */
-  font-weight: 700; /* Heavier weight for titles */
-  color: var(--deep-lavender); /* Use a pastel hue for titles */
-  margin-bottom: var(--spacing-small);
+/* The card text container */
+.card-content {
+  position: relative;  /* ensures text is above the background */
+  z-index: 1;
+  padding: 1rem;
+  text-align: center;
 }
 
-.clay-card .card-body {
-  font-size: var(--body-text); /* Slightly reduce body text font size */
-  font-weight: 400; /* Lighter weight for body text */
-  color: var(--lavender-gray); /* Neutral color for body text */
-  line-height: 1.5; /* Increase line-height for better readability */
+/* Position the SVG exactly over the card */
+.laser-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;  /* draw it above the background, behind text if z-index < 1 */
+}
+
+.laser-svg path {
+  /* Hide the stroke by default using dash offsets */
+  stroke-dasharray: 926;   /* approximate perimeter for 280x200 with 20px corners */
+  stroke-dashoffset: 926;  /* fully "hidden" at the start */
+  transition: stroke-dashoffset 3s linear; 
+}
+
+/* On hover, animate the dashoffset from 926 -> 0, making the stroke "travel" the entire path */
+.clay-card:hover .laser-svg path {
+  stroke-dashoffset: 0;
 }

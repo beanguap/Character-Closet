@@ -1,47 +1,157 @@
 // Dashboard.jsx
 import React from 'react';
-import { Typography, Paper } from '@mui/material';
+import { Typography } from '@mui/material';
 
-// Import the relevant CSS
 import '../../styles/variables.css'; 
 import '../../styles/layout.css';    
-import '../../styles/claycard.css'; 
+import '../../styles/claycard.css';  // We'll place the SVG + dash animation here
 
 import TopBar from '../../components/TopBar/TopBar.jsx';
-import BottomNav from '../../components/BottomNav/BottomNav.jsx'
+import BottomNav from '../../components/BottomNav/BottomNav.jsx';
 
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <TopBar />
       <main className="dashboard-content">
-        <Paper className="clay-card">
-          <Typography variant="h5">Outfit Detection</Typography>
-          <Typography variant="body1">
-            Process images for fashion item recognition.
-          </Typography>
-        </Paper>
+        
+        {/* CARD 1 */}
+        <div className="clay-card">
+          <div className="card-content">
+            <Typography variant="h5">Outfit Detection</Typography>
+            <Typography variant="body1">
+              Process images for fashion item recognition.
+            </Typography>
+          </div>
+          {/* SVG laser outline */}
+          <svg
+            className="laser-svg"
+            width="280"
+            height="200"
+            viewBox="0 0 280 200"
+            fill="none"
+          >
+            <path
+              d="M 20,0
+                 H 260
+                 A 20,20 0 0 1 280,20
+                 V 180
+                 A 20,20 0 0 1 260,200
+                 H 20
+                 A 20,20 0 0 1 0,180
+                 V 20
+                 A 20,20 0 0 1 20,0
+                 Z"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
 
-        <Paper className="clay-card">
-          <Typography variant="h5">Results</Typography>
-          <Typography variant="body1">
-            View recommended items and styling suggestions.
-          </Typography>
-        </Paper>
+        {/* CARD 2 */}
+        <div className="clay-card">
+          <div className="card-content">
+            <Typography variant="h5">Results</Typography>
+            <Typography variant="body1">
+              View recommended items and styling suggestions.
+            </Typography>
+          </div>
+          <svg
+            className="laser-svg"
+            width="280"
+            height="200"
+            viewBox="0 0 280 200"
+            fill="none"
+          >
+            <path
+              d="M 20,0
+                 H 260
+                 A 20,20 0 0 1 280,20
+                 V 180
+                 A 20,20 0 0 1 260,200
+                 H 20
+                 A 20,20 0 0 1 0,180
+                 V 20
+                 A 20,20 0 0 1 20,0
+                 Z"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
 
-        <Paper className="clay-card">
-          <Typography variant="h5">Scanner</Typography>
-          <Typography variant="body1">
-            Open the camera for live outfit detection.
-          </Typography>
-        </Paper>
+        {/* CARD 3 */}
+        <div className="clay-card">
+          <div className="card-content">
+            <Typography variant="h5">Scanner</Typography>
+            <Typography variant="body1">
+              Open the camera for live outfit detection.
+            </Typography>
+          </div>
+          <svg
+            className="laser-svg"
+            width="280"
+            height="200"
+            viewBox="0 0 280 200"
+            fill="none"
+          >
+            <path
+              d="M 20,0
+                 H 260
+                 A 20,20 0 0 1 280,20
+                 V 180
+                 A 20,20 0 0 1 260,200
+                 H 20
+                 A 20,20 0 0 1 0,180
+                 V 20
+                 A 20,20 0 0 1 20,0
+                 Z"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
 
-        <Paper className="clay-card">
-          <Typography variant="h5">Upload Zone</Typography>
-          <Typography variant="body1">
-            Drag and drop or pick an image file.
-          </Typography>
-        </Paper>
+        {/* CARD 4 */}
+        <div className="clay-card">
+          <div className="card-content">
+            <Typography variant="h5">Upload Zone</Typography>
+            <Typography variant="body1">
+              Drag and drop or pick an image file.
+            </Typography>
+          </div>
+          <svg
+            className="laser-svg"
+            width="280"
+            height="200"
+            viewBox="0 0 280 200"
+            fill="none"
+          >
+            <path
+              d="M 20,0
+                 H 260
+                 A 20,20 0 0 1 280,20
+                 V 180
+                 A 20,20 0 0 1 260,200
+                 H 20
+                 A 20,20 0 0 1 0,180
+                 V 20
+                 A 20,20 0 0 1 20,0
+                 Z"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+
       </main>
       <BottomNav />
     </div>
