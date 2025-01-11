@@ -1,15 +1,21 @@
-// Dashboard.jsx
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import '../../styles/variables.css';
-import '../../styles/layout.css';    
-import '../../styles/claycard.css';  // We'll place the laser path animation here
+import '../../styles/layout.css';
+import '../../styles/claycard.css';
 
 import TopBar from '../../components/TopBar/TopBar.jsx';
 import BottomNav from '../../components/BottomNav/BottomNav.jsx';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/additional-content');
+  };
+
   return (
     <div className="dashboard-container">
       <TopBar />
@@ -23,11 +29,7 @@ const Dashboard = () => {
               Process images for fashion item recognition.
             </Typography>
           </div>
-          <svg
-            className="laser-svg"
-            viewBox="0 0 280 200"
-            fill="none"
-          >
+          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
             <path
               d="M 20,0
                  H 260
@@ -51,11 +53,7 @@ const Dashboard = () => {
               View recommended items and styling suggestions.
             </Typography>
           </div>
-          <svg
-            className="laser-svg"
-            viewBox="0 0 280 200"
-            fill="none"
-          >
+          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
             <path
               d="M 20,0
                  H 260
@@ -71,19 +69,24 @@ const Dashboard = () => {
           </svg>
         </div>
 
-        {/* CARD 3 */}
+        {/* CARD 3 (Scanner) */}
         <div className="clay-card">
           <div className="card-content">
             <Typography variant="h5">Scanner</Typography>
             <Typography variant="body1">
               Open the camera for live outfit detection.
             </Typography>
+
+            {/* Add the "+" button under Scanner */}
+            <Button
+              variant="contained"
+              className="clay-circle-button"
+              onClick={handleButtonClick}
+            >
+              +
+            </Button>
           </div>
-          <svg
-            className="laser-svg"
-            viewBox="0 0 280 200"
-            fill="none"
-          >
+          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
             <path
               d="M 20,0
                  H 260
@@ -107,11 +110,7 @@ const Dashboard = () => {
               Drag and drop or pick an image file.
             </Typography>
           </div>
-          <svg
-            className="laser-svg"
-            viewBox="0 0 280 200"
-            fill="none"
-          >
+          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
             <path
               d="M 20,0
                  H 260

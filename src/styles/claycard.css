@@ -21,6 +21,28 @@
   cursor: pointer;
 }
 
+.clay-circle-button {
+  margin-top: 1rem;       /* Space above the button */
+  align-self: center;     /* Center the button horizontally */
+  border-radius: 50%;     /* Circular button */
+  min-width: 48px;        /* Ensure consistent size */
+  min-height: 48px;
+  font-size: 1.5rem;      /* Adjust '+' font size */
+  background-color: #007bff; /* Button color (blue) */
+  color: white;
+  box-shadow: 
+    5px 5px 10px rgba(0, 0, 0, 0.1),
+    -5px -5px 10px rgba(255, 255, 255, 0.7);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clay-circle-button:hover {
+  transform: scale(1.1); /* Slight enlarge on hover */
+  box-shadow: 
+    0 0 20px rgba(0, 123, 255, 0.8);
+}
+
+
 .card-content {
   position: relative;
   z-index: 1; 
