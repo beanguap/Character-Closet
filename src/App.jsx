@@ -8,7 +8,6 @@ const OutfitDetection = lazy(() => import('./pages/OutfitDetection/OutfitDetecti
 const Customization = lazy(() => import('./pages/Customization/Customization'));
 const Wardrobe = lazy(() => import('./pages/Wardrobe/Wardrobe'));
 const LoadingFallback = lazy(() => import('./components/LoadingFallback/LoadingFallback'));
-const AdditionalContent = lazy(() => import('./pages/AdditionalContent/AdditionalContent'));
 
 const App = () => {
   return (
@@ -20,7 +19,6 @@ const App = () => {
           <Route path="/outfit-detection" element={<OutfitDetection />} />
           <Route path="/customization" element={<Customization />} />
           <Route path="/wardrobe" element={<Wardrobe />} />
-          <Route path="/additional-content" element={<AdditionalContent />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

@@ -1,10 +1,11 @@
-import React from 'react';
-import { Typography, Button } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import '../../styles/variables.css';
 import '../../styles/layout.css';
 import '../../styles/claycard.css';
+import '../../styles/scrollbar.css'; // Import the new scrollbar styles
 
 import TopBar from '../../components/TopBar/TopBar.jsx';
 import BottomNav from '../../components/BottomNav/BottomNav.jsx';
@@ -12,9 +13,24 @@ import BottomNav from '../../components/BottomNav/BottomNav.jsx';
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
-    navigate('/additional-content');
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = document.querySelector('.dashboard-container');
+      const indicator = document.querySelector('.indicator');
+      if (container.scrollTop > 100) {
+        container.classList.add('scrolled');
+      } else {
+        container.classList.remove('scrolled');
+      }
+    };
+
+    const container = document.querySelector('.dashboard-container');
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -69,22 +85,13 @@ const Dashboard = () => {
           </svg>
         </div>
 
-        {/* CARD 3 (Scanner) */}
+        {/* CARD 3 */}
         <div className="clay-card">
           <div className="card-content">
             <Typography variant="h5">Scanner</Typography>
             <Typography variant="body1">
               Open the camera for live outfit detection.
             </Typography>
-
-            {/* Add the "+" button under Scanner */}
-            <Button
-              variant="contained"
-              className="clay-circle-button"
-              onClick={handleButtonClick}
-            >
-              +
-            </Button>
           </div>
           <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
             <path
@@ -128,6 +135,8 @@ const Dashboard = () => {
       </main>
 
       <BottomNav />
+
+      <div className="indicator">Page 2</div>
     </div>
   );
 };
