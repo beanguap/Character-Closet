@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,25 +12,6 @@ import BottomNav from '../../components/BottomNav/BottomNav.jsx';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const container = document.querySelector('.dashboard-container');
-      const indicator = document.querySelector('.indicator');
-      if (container.scrollTop > 100) {
-        container.classList.add('scrolled');
-      } else {
-        container.classList.remove('scrolled');
-      }
-    };
-
-    const container = document.querySelector('.dashboard-container');
-    container.addEventListener('scroll', handleScroll);
-
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
     <div className="dashboard-container">
@@ -135,8 +116,6 @@ const Dashboard = () => {
       </main>
 
       <BottomNav />
-
-      <div className="indicator">Page 2</div>
     </div>
   );
 };
