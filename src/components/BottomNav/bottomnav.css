@@ -1,35 +1,46 @@
 /* BottomNav.css */
 .bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: var(--spacing-large);
-    background: var(--card-gradient);
-    box-shadow: var(--outer-shadow);
-    margin-top: var(--spacing-large);
-    border-radius: 2rem; /* Increase border-radius for more rounded edges */
-    position: relative;
-    z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: var(--spacing-large);
+  background: var(--card-gradient);
+  box-shadow: var(--outer-shadow);
+  margin-top: var(--spacing-large);
+  border-radius: 2rem; /* Increase border-radius for more rounded edges */
+  position: relative;
+  z-index: 10;
+  height: 60px; /* Fixed height for consistency */
+  width: 100%;
+  max-width: 480px; /* Set a maximum width for consistency */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 768px) {
+  .bottom-nav {
+    height: 60px; /* Maintain the same height on larger screens */
   }
-  
-  .nav-icon {
-    color: var(--dark-lavender);
-    font-size: var(--heading-medium);
-    cursor: pointer;
-    padding: var(--spacing-medium);
-    border-radius: 50%;
-    transition: all var(--transition-speed);
-    background: transparent;
-  }
-  
-  .nav-icon:hover {
-    transform: scale(var(--hover-scale));
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: var(--inner-shadow);
-  }
-  
-  .nav-icon.active {
-    color: var(--deep-lavender);
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: var(--inner-shadow);
-  }
+}
+
+.nav-icon {
+  color: var(--dark-lavender);
+  font-size: var(--heading-medium);
+  cursor: pointer;
+  padding: var(--spacing-medium);
+  border-radius: 50%;
+  transition: all var(--transition-speed);
+  background: transparent;
+}
+
+.nav-icon:hover {
+  transform: scale(var(--hover-scale));
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--inner-shadow);
+}
+
+.nav-icon.active {
+  color: var(--deep-lavender);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--inner-shadow);
+}

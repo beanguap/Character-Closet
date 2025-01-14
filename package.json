@@ -14,6 +14,8 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.6",
     "@radix-ui/react-alert-dialog": "^1.1.2",
+    "@react-three/drei": "^9.120.8",
+    "@react-three/fiber": "^8.17.12",
     "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.7",
     "git": "^0.1.5",
@@ -24,7 +26,8 @@
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.3.1",
     "react-router-dom": "^6.27.0",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "three": "^0.172.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
