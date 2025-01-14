@@ -1,87 +1,51 @@
 /* claycard.css */
 .clay-card {
   position: relative;
-  width: 280px;
-  height: 200px;
-
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(230, 230, 250, 0.2)
-  );
-  box-shadow: var(--outer-shadow);
-  border-radius: 20px; 
+  width: 90%; /* Adjust width to ensure even spacing on both sides */
+  max-width: 280px; /* Ensure the card doesn't exceed a certain width */
+  height: 20vh; /* Adjust height to fit all cards within the viewport */
+  max-height: 20vh; /* Ensure the card doesn't exceed 20% of the viewport height */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2));
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(107, 78, 216, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.7);
   overflow: hidden;
+  margin: 0.5rem;
+  cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .clay-card:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--inner-shadow);
-  cursor: pointer;
+  box-shadow: inset 6px 6px 12px rgba(107, 78, 216, 0.1), inset -6px -6px 12px rgba(255, 255, 255, 0.7);
 }
-
-.clay-circle-button {
-  margin-top: 1rem;       /* Space above the button */
-  align-self: center;     /* Center the button horizontally */
-  border-radius: 50%;     /* Circular button */
-  min-width: 48px;        /* Ensure consistent size */
-  min-height: 48px;
-  font-size: 1.5rem;      /* Adjust '+' font size */
-  background-color: #007bff; /* Button color (blue) */
-  color: white;
-  box-shadow: 
-    5px 5px 10px rgba(0, 0, 0, 0.1),
-    -5px -5px 10px rgba(255, 255, 255, 0.7);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.clay-circle-button:hover {
-  transform: scale(1.1); /* Slight enlarge on hover */
-  box-shadow: 
-    0 0 20px rgba(0, 123, 255, 0.8);
-}
-
 
 .card-content {
   position: relative;
-  z-index: 1; 
+  z-index: 1;
   padding: 1rem;
   text-align: center;
 }
 
-/* SVG fills the entire card area */
 .laser-svg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 280px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   z-index: 0;
 }
 
-/* Laser path animation */
 .laser-svg path {
   fill: none;
-  stroke: white;         
+  stroke: white;
   stroke-width: 12;
   stroke-linecap: round;
   stroke-linejoin: round;
-
-  /* 
-     Dash: 120px visible “head”, 
-     Gap: 806px invisible “tail”
-     => total 926, matching the shape’s perimeter.
-  */
   stroke-dasharray: 120 806;
-
   filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
-  
-  /* Animate dashoffset from 0 to -926 in 4s for a loop with no stutter */
   animation: laserLoop 4s linear infinite;
 }
 
-/* Keyframes: travels around once, then repeats seamlessly */
 @keyframes laserLoop {
   0% {
     stroke-dashoffset: 0;
@@ -90,4 +54,3 @@
     stroke-dashoffset: -926;
   }
 }
-

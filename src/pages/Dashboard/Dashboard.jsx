@@ -26,7 +26,7 @@ const Dashboard = () => {
               Process images for fashion item recognition.
             </Typography>
           </div>
-          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
+          <svg className="laser-svg" viewBox="0 0 280 200" preserveAspectRatio="none">
             <path
               d="M 20,0
                  H 260
@@ -50,7 +50,7 @@ const Dashboard = () => {
               View recommended items and styling suggestions.
             </Typography>
           </div>
-          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
+          <svg className="laser-svg" viewBox="0 0 280 200" preserveAspectRatio="none">
             <path
               d="M 20,0
                  H 260
@@ -74,7 +74,7 @@ const Dashboard = () => {
               Open the camera for live outfit detection.
             </Typography>
           </div>
-          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
+          <svg className="laser-svg" viewBox="0 0 280 200" preserveAspectRatio="none">
             <path
               d="M 20,0
                  H 260
@@ -98,7 +98,7 @@ const Dashboard = () => {
               Drag and drop or pick an image file.
             </Typography>
           </div>
-          <svg className="laser-svg" viewBox="0 0 280 200" fill="none">
+          <svg className="laser-svg" viewBox="0 0 280 200" preserveAspectRatio="none">
             <path
               d="M 20,0
                  H 260
