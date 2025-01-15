@@ -1,5 +1,4 @@
 /* src/pages/Home/home.css */
-
 :root {
   --primary-lavender: #E6E6FA;
   --deep-lavender: #9B8ACB;
@@ -13,58 +12,69 @@
   --transition-speed: 0.3s;
 }
 
+/* Body with claymorphic background */
 body {
   margin: 0;
   padding: 0;
   background: var(--light-lavender);
   font-family: sans-serif;
-  /* Ensures the body is the full viewport height */
   height: 100vh;
-  overflow: hidden; /* optional if you want no scrolling */
+  overflow: hidden; /* no scrolling */
 }
 
 /* 
-  The outer container that spans the full viewport.
-  This ensures your 3D canvas can be large on mobile/desktop. 
+  .home-container: 
+  - A "card" with claymorphic style 
+  - Currently max-width 480px for mobile-first (like a phone-sized card).
 */
-/* src/pages/Home/home.css */
 .home-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  /* If you want it centered on wide screens as a “card”: */
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
+
+  /* If you want the container to always be the full viewport height: */
   min-height: 100vh;
+
   border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: var(--outer-shadow);
   background: var(--light-lavender);
+  box-shadow: var(--outer-shadow);
+  overflow: hidden;
 }
 
 /*
-  The 3D canvas area - fill a large portion of the screen,
-  while preserving claymorphic shadows and rounding.
+  The 3D canvas area:
+   - Fill remaining vertical space 
+   - Keep the claymorphic style if you like
 */
 .canvas-wrapper {
+  /* Expand to fill vertical leftover after the title/description */
+  flex: 1;         
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  position: relative;
 }
 
+/* 
+  Force the <canvas> to fill .canvas-wrapper
+  (since React Three Fiber sets inline width/height).
+*/
 .canvas-wrapper canvas {
   width: 100% !important;
   height: 100% !important;
 }
 
-/* On hover, show the inner shadow effect (if you wish) */
+/* Optional hover effect for "pressed" clay look */
 .canvas-wrapper:hover {
   box-shadow: var(--inner-shadow);
 }
 
-/* Title or top text (if you want it above the canvas) */
+/* Title near the top */
 .home-title {
   color: var(--dark-lavender);
   font-size: 2rem;
@@ -73,7 +83,7 @@ body {
   text-shadow: 1px 1px 2px var(--shadow-color);
 }
 
-/* If you have a descriptive text area */
+/* Description near the bottom */
 .home-description {
   color: var(--lavender-gray);
   text-align: center;

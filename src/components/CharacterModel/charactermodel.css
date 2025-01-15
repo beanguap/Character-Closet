@@ -1,0 +1,28 @@
+/* src/components/CharacterModel/CharacterModel.css */
+:root {
+    --outer-shadow: 8px 8px 16px rgba(107, 78, 216, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.7);
+    --inner-shadow: inset 4px 4px 8px rgba(107, 78, 216, 0.1), inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+  }
+  
+/* 
+  If you want the canvas to always fill the parent container, 
+  you can style it here:
+*/
+.model-canvas-wrapper {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    position: relative; 
+    /* optional box shadow or clay style, if you want */
+    box-shadow: var(--outer-shadow);
+  }
+  
+  /* 
+    If you need to override the <canvas> dimensions 
+    to be 100% of its parent:
+  */
+  .model-canvas-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
