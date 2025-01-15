@@ -1,6 +1,5 @@
-// src/pages/Home/Home.jsx
 import React from 'react';
-import CharacterScene from '../../components/CharacterScene/CharacterScene';
+import CharacterScene from '../../components/CharacterModel/CharacterModel';
 import './home.css';
 
 const Home = () => {

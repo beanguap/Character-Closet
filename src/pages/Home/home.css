@@ -27,17 +27,20 @@ body {
   The outer container that spans the full viewport.
   This ensures your 3D canvas can be large on mobile/desktop. 
 */
+/* src/pages/Home/home.css */
 .home-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* or center */
+  justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh; /* fills entire screen */
-  box-sizing: border-box;
-  background: var(--light-lavender);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  border-radius: 2rem;
   overflow: hidden;
-  position: relative;
+  box-shadow: var(--outer-shadow);
+  background: var(--light-lavender);
 }
 
 /*
@@ -45,13 +48,15 @@ body {
   while preserving claymorphic shadows and rounding.
 */
 .canvas-wrapper {
-  flex: 1; /* grows to fill remaining space */
-  width: 100%;
-  border-radius: 2rem;
-  box-shadow: var(--outer-shadow);
-  transition: box-shadow var(--transition-speed);
-  position: relative; /* for absolutely positioned overlays */
-  margin-bottom: 1rem; /* give some breathing room for clay effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.canvas-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* On hover, show the inner shadow effect (if you wish) */
