@@ -1,11 +1,11 @@
-// src/components/CharacterModel.js
-
 import { useGLTF } from '@react-three/drei';
 
 export default function CharacterModel() {
-  // Load base character
-  const { scene: baseScene } = useGLTF('/assets/models/baseCharacter.glb');
+  // Load the model using the correct path relative to public directory
+  const { scene } = useGLTF('./src/assets/3DModal/wednesday_addams_chibi/scene.gltf');
 
-  // Return the base character model in the scene
-  return <primitive object={baseScene} />;
+  // Preload the model
+  useGLTF.preload('./src/assets/3DModal/wednesday_addams_chibi/scene.gltf');
+
+  return <primitive object={scene} />;
 }
