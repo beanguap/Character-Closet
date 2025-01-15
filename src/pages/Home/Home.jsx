@@ -1,5 +1,5 @@
 // Home.jsx is the main page of the application. It contains the title of the application and the CharacterScene component.
-import CharacterScene from './CharacterScene';
+import CharacterScene from '../../components/CharacterScene/CharacterScene';
 import './home.css';
 
 function Home() {
