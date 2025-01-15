@@ -1,30 +1,24 @@
-// src/components/UIControls.js
+// src/components/UIControls/UIControls.jsx
+import React from 'react';
 
-export default function UIControls({ selectedHat, setSelectedHat }) {
+const UIControls = ({ showHat, setShowHat }) => {
   return (
-    <div style={styles.controlsContainer}>
-      <button style={styles.button} onClick={() => setSelectedHat(!selectedHat)}>
+    <div style={styles.container}>
+      <button onClick={() => setShowHat(!showHat)}>
         Toggle Hat
       </button>
     </div>
   );
-}
+};
 
 const styles = {
-  controlsContainer: {
+  container: {
     position: 'absolute',
-    bottom: 10,
+    bottom: '1rem',
     left: '50%',
     transform: 'translateX(-50%)',
-    display: 'flex',
-    gap: '1rem',
-  },
-  button: {
-    padding: '0.75rem 1rem',
-    fontSize: '1rem',
-    borderRadius: '8px',
-    border: 'none',
-    background: '#333',
-    color: '#fff',
-  },
+    zIndex: 999, // ensure it's above the canvas
+  }
 };
+
+export default UIControls;

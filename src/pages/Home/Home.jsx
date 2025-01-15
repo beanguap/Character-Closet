@@ -1,14 +1,22 @@
-// Home.jsx is the main page of the application. It contains the title of the application and the CharacterScene component.
+// src/pages/Home/Home.jsx
+import React from 'react';
 import CharacterScene from '../../components/CharacterScene/CharacterScene';
 import './home.css';
 
-function Home() {
+const Home = () => {
   return (
-    <div>
-      <h1>My Interactive Mii-Like Character</h1>
-      <CharacterScene />
+    <div className="home-container">
+      <h1 className="home-title">Character Closet</h1>
+
+      <div className="canvas-wrapper">
+        <CharacterScene />
+      </div>
+
+      <p className="home-description">
+        Rotate and customize your 3D character!
+      </p>
     </div>
   );
-}
+};
 
 export default Home;

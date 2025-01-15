@@ -1,38 +1,78 @@
 /* src/pages/Home/home.css */
+
 :root {
-    --primary-lavender: #E6E6FA;
-    --deep-lavender: #9B8ACB;
-    --light-lavender: #F3F0FF;
-    --lavender-gray: #C5C6D0;
-    --dark-lavender: #694ED8;
-    --shadow-color: rgba(107, 78, 216, 0.1);
-    --highlight-color: rgba(255, 255, 255, 0.7);
-    --outer-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--highlight-color);
-    --inner-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--highlight-color);
-    --transition-speed: 0.3s;
-  }
-  
-  .home-container {
-    padding: 2rem;
-    background: var(--light-lavender);
-    border-radius: 1rem;
-    box-shadow: var(--outer-shadow);
-    transition: all var(--transition-speed);
-  }
-  
-  .home-container:hover {
-    box-shadow: var(--inner-shadow);
-  }
-  
-  .home-title {
-    color: var(--dark-lavender);
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .home-description {
-    color: var(--lavender-gray);
-    text-align: center;
-    font-size: 1.2rem;
-  }
+  --primary-lavender: #E6E6FA;
+  --deep-lavender: #9B8ACB;
+  --light-lavender: #F3F0FF;
+  --lavender-gray: #C5C6D0;
+  --dark-lavender: #694ED8;
+  --shadow-color: rgba(107, 78, 216, 0.1);
+  --highlight-color: rgba(255, 255, 255, 0.7);
+  --outer-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--highlight-color);
+  --inner-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--highlight-color);
+  --transition-speed: 0.3s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--light-lavender);
+  font-family: sans-serif;
+  /* Ensures the body is the full viewport height */
+  height: 100vh;
+  overflow: hidden; /* optional if you want no scrolling */
+}
+
+/* 
+  The outer container that spans the full viewport.
+  This ensures your 3D canvas can be large on mobile/desktop. 
+*/
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* or center */
+  align-items: center;
+  width: 100vw;
+  height: 100vh; /* fills entire screen */
+  box-sizing: border-box;
+  background: var(--light-lavender);
+  overflow: hidden;
+  position: relative;
+}
+
+/*
+  The 3D canvas area - fill a large portion of the screen,
+  while preserving claymorphic shadows and rounding.
+*/
+.canvas-wrapper {
+  flex: 1; /* grows to fill remaining space */
+  width: 100%;
+  border-radius: 2rem;
+  box-shadow: var(--outer-shadow);
+  transition: box-shadow var(--transition-speed);
+  position: relative; /* for absolutely positioned overlays */
+  margin-bottom: 1rem; /* give some breathing room for clay effect */
+}
+
+/* On hover, show the inner shadow effect (if you wish) */
+.canvas-wrapper:hover {
+  box-shadow: var(--inner-shadow);
+}
+
+/* Title or top text (if you want it above the canvas) */
+.home-title {
+  color: var(--dark-lavender);
+  font-size: 2rem;
+  margin: 1rem 0;
+  text-align: center;
+  text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+/* If you have a descriptive text area */
+.home-description {
+  color: var(--lavender-gray);
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 0 1rem 1rem 1rem;
+  line-height: 1.5;
+}
