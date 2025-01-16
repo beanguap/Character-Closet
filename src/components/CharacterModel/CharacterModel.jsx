@@ -1,21 +1,17 @@
-// src/components/CharacterModel/CharacterModel.jsx
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
-import { useGLTF, OrbitControls, Bounds } from '@react-three/drei'
-import './CharacterModel.css'
+import { Canvas } from '@react-three/fiber';
+import { useGLTF, OrbitControls } from '@react-three/drei';
+import './CharacterModel.css';
 
 export default function CharacterScene() {
-  const { scene } = useGLTF('/models/wednesday_addams_chibi/scene.gltf')
-  scene.rotation.y = Math.PI / 2
-  scene.scale.set(2, 2, 2)
+  const { scene } = useGLTF('/models/wednesday_addams_chibi/scene.gltf');
+  scene.rotation.y = Math.PI / 2;
+  scene.scale.set(2, 2, 2);
 
   return (
     <div className="model-canvas-wrapper">
       <Canvas
-        camera={{
-          fov: 25,
-          position: [0, 1, 2.5],
-        }}
+        camera={{ fov: 25, position: [0, 1, 2.5] }}
+        style={{ width: '100%', height: '100%' }}
       >
         <OrbitControls
           enablePan={false}
@@ -28,5 +24,5 @@ export default function CharacterScene() {
         <primitive object={scene} />
       </Canvas>
     </div>
-  )
+  );
 }
