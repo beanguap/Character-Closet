@@ -1,15 +1,24 @@
-// BottomNav.jsx
+// src/components/BottomNav/BottomNav.jsx
 import React from 'react';
 import { IconButton } from '@mui/material';
-import { Home, Camera, ShoppingBag, User } from 'lucide-react';
+import { Home, Camera, ShoppingBag, LayoutDashboard } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import '../../styles/variables.css';  // Access to color variables
-import './BottomNav.css';   // Specific styles for bottom nav
+import '../../styles/variables.css';
+import './BottomNav.css';
 
 const BottomNav = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
+
   return (
     <footer className="bottom-nav">
-      <IconButton className="nav-icon">
+      <IconButton 
+        className={`nav-icon ${isActive('/') ? 'active' : ''}`}
+        onClick={() => navigate('/')}
+      >
         <Home />
       </IconButton>
       <IconButton className="nav-icon">
@@ -18,8 +27,11 @@ const BottomNav = () => {
       <IconButton className="nav-icon">
         <ShoppingBag />
       </IconButton>
-      <IconButton className="nav-icon">
-        <User />
+      <IconButton 
+        className={`nav-icon ${isActive('/dashboard') ? 'active' : ''}`}
+        onClick={() => navigate('/dashboard')}
+      >
+        <LayoutDashboard />
       </IconButton>
     </footer>
   );
