@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import './dashboard.css';
 import '../../styles/variables.css';
 import '../../styles/layout.css';
 import '../../styles/claycard.css';

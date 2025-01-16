@@ -1,0 +1,58 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 60px 1rem 60px 1rem; /* Further reduced padding */
+  background: var(--light-lavender);
+}
+
+.dashboard-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0.25rem auto; /* Minimal margin */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* Minimal gap */
+  padding: 0.25rem; /* Minimal padding */
+  overflow-y: auto;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 480px) {
+  .dashboard-container {
+    padding: 55px 0.5rem 55px 0.5rem;
+  }
+
+  .dashboard-content {
+    margin: 0.2rem auto;
+    gap: 0.4rem;
+  }
+  
+  .dashboard-content .clay-card {
+    height: 25vh;
+    width: 92%;
+  }
+}
+
+/* Import claymorphic card styles but scope them to dashboard */
+.dashboard-content .clay-card {
+  width: 95%; /* Increased width */
+  max-width: 480px;
+  height: 28vh; /* Increased height */
+  max-height: 28vh;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2));
+  border-radius: 20px;
+  box-shadow: var(--outer-shadow);
+  overflow: hidden;
+  margin: 0.2rem; /* Minimal margin */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dashboard-content .clay-card:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--inner-shadow);
+}
