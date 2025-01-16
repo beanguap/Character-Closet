@@ -39,10 +39,10 @@
 
 /* Import claymorphic card styles but scope them to dashboard */
 .dashboard-content .clay-card {
-  width: 95%; /* Increased width */
+  width: 100%; /* Increased width */
   max-width: 480px;
-  height: 28vh; /* Increased height */
-  max-height: 28vh;
+  height: 50vh; /* Increased height */
+  max-height: 100vh;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2));
   border-radius: 20px;
   box-shadow: var(--outer-shadow);

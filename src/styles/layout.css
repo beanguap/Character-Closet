@@ -1,105 +1,76 @@
+/* Example of combined layout */
+
+/* Container fills viewport, minimal vertical padding */
 .dashboard-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden; /* Prevent scrolling */
+  padding: 0 1rem;  /* remove large top/bottom padding */
+  overflow: hidden; /* or overflow: auto; if you want scrolling in the container itself */
+  background: var(--light-lavender);
 }
 
+/* Main content with overflow-y to scroll if needed */
 .dashboard-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the containers horizontally */
-  justify-content: center; /* Center the containers vertically */
-  gap: 1rem;
-  padding: 1rem;
+  align-items: center;
+  justify-content: flex-start; /* start under top bar */
+  gap: 0.5rem;
+  padding: 1rem 0;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
 }
 
-.clay-card {
-  width: 90%; /* Adjust width to ensure even spacing on both sides */
-  max-width: 280px; /* Ensure the card doesn't exceed a certain width */
-  height: 20vh; /* Adjust height to fit all cards within the viewport */
-  max-height: 20vh; /* Ensure the card doesn't exceed 20% of the viewport height */
+/* Clay card style */
+.dashboard-content .clay-card {
+  width: 100%;
+  max-width: 480px;
+  height: 50vh;
+  max-height: 100vh;
+  margin: 0.2rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2));
   border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(107, 78, 216, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.7);
-  overflow: hidden;
-  margin: 0.5rem;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.clay-card:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: inset 6px 6px 12px rgba(107, 78, 216, 0.1), inset -6px -6px 12px rgba(255, 255, 255, 0.7);
-}
-
-/* Common layout styles */
-.bottom-nav {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  max-width: 480px; /* Set a maximum width for consistency */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: var(--spacing-large);
-  background: var(--card-gradient);
   box-shadow: var(--outer-shadow);
-  border-radius: 2rem 2rem 0 0; /* Rounded top edges */
-  z-index: 100;
-  height: 60px; /* Fixed height for consistency */
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-@media (min-width: 768px) {
-  .bottom-nav {
-    height: 60px; /* Maintain the same height on larger screens */
-  }
-}
-
-/* Common layout styles */
+/* Top bar with less vertical offset */
 .top-bar {
   position: fixed;
-  top: 20px;
+  top: 10px; /* was 20px */
+  margin-bottom: 0; /* remove or reduce margin-bottom */
   width: 100%;
-  max-width: 480px; /* Set a maximum width for consistency */
+  max-width: 480px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
+  height: 50px; /* slightly smaller if you prefer */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-large);
+  padding: 0.5rem 1rem; /* smaller padding if you want to reduce vertical space */
   background: var(--card-gradient);
+  border-radius: 2rem;
   box-shadow: var(--outer-shadow);
-  margin-bottom: var(--spacing-large);
-  border-radius: 2rem; /* Increase border-radius for more rounded edges */
-  position: relative;
   z-index: 10;
+}
+
+/* Bottom nav with less vertical offset */
+.bottom-nav {
+  position: fixed;
+  bottom: 10px; /* was 20px */
   width: 100%;
-  max-width: 480px; /* Set a maximum width for consistency */
+  max-width: 480px;
   left: 50%;
   transform: translateX(-50%);
-  height: 60px; /* Fixed height for consistency */
-}
-
-@media (min-width: 768px) {
-  .top-bar {
-    height: 60px; /* Maintain the same height on larger screens */
-  }
-}
-
-/* Basic responsive adjustments */
-@media screen and (max-width: 480px) {
-  .bottom-nav {
-    bottom: 15px;
-  }
-
-  .top-bar {
-    top: 15px;
-  }
+  height: 50px; /* slightly smaller if you prefer */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 1rem; /* smaller padding */
+  background: var(--card-gradient);
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: var(--outer-shadow);
+  z-index: 10;
 }
