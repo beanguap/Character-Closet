@@ -1,18 +1,26 @@
 import CharacterScene from '../../components/CharacterModel/CharacterModel';
+import TopBar from '../../components/TopBar/TopBar';
+import BottomNav from '../../components/BottomNav/BottomNav';
 import './home.css';
 
 const Home = () => {
   return (
     <div className="home-container">
-      <h1 className="home-title">Character Closet</h1>
+      <TopBar />
 
-      <div className="canvas-wrapper">
-        <CharacterScene />
+      <div className="content-wrapper">
+        <h1 className="home-title">Avatar Customizer</h1>
+
+        <div className="canvas-wrapper">
+          <CharacterScene />
+        </div>
+
+        <p className="home-description">
+          Rotate and customize your 3D character!
+        </p>
       </div>
 
-      <p className="home-description">
-        Rotate and customize your 3D character!
-      </p>
+      <BottomNav />
     </div>
   );
 };

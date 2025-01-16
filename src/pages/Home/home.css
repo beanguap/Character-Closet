@@ -29,25 +29,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   width: 100%;
-  max-width: 480px;
-  height: 100vh;  /* Changed from min-height to height */
-  margin: 0 auto;
-  border-radius: 2rem;
+  padding: 100px 1rem 120px 1rem; /* Increased bottom padding */
   background: var(--light-lavender);
-  box-shadow: var(--outer-shadow);
-  overflow: hidden;
-  position: relative;  /* Added position relative */
 }
 
-.canvas-wrapper {
-  position: absolute;  /* Changed to absolute positioning */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.content-wrapper {
+  position: relative;
   width: 100%;
-  height: 100%;
+  max-width: 480px;
+  height: calc(100vh - 280px); /* Increased reduction to account for nav bars */
+  background: linear-gradient(
+    145deg,
+    var(--primary-lavender),
+    var(--light-lavender)
+  );
+  border-radius: 2rem;
+  box-shadow: 
+    12px 12px 24px var(--shadow-color),
+    -12px -12px 24px var(--highlight-color),
+    inset 2px 2px 4px var(--highlight-color),
+    inset -2px -2px 4px var(--shadow-color);
+  overflow: hidden;
+  padding: 2rem 1rem;
+  margin: 2rem auto; /* Increased margin */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Add specific styling for the model canvas wrapper */
@@ -60,11 +69,11 @@ body {
 .model-canvas-wrapper canvas {
   width: 100% !important;
   height: 100% !important;
-  display: block;  /* Added display block */
+  display: block;
 }
 
 .home-title {
-  position: relative;  /* Added z-index positioning */
+  position: relative;
   z-index: 1;
   color: var(--dark-lavender);
   font-size: 2rem;
@@ -74,11 +83,104 @@ body {
 }
 
 .home-description {
-  position: relative;  /* Added z-index positioning */
+  position: relative;
   z-index: 1;
   color: var(--lavender-gray);
   text-align: center;
   font-size: 1.2rem;
   margin: 0 1rem 1rem 1rem;
   line-height: 1.5;
+}
+
+/* Adjust TopBar positioning */
+.top-bar {
+  position: fixed;
+  top: 20px; /* Increased from 0 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Adjust BottomNav positioning */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px; /* Increased from 0 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Mobile-first styles */
+@media screen and (max-width: 480px) {
+  .home-container {
+    padding: 80px 0.5rem 100px 0.5rem; /* Adjusted padding */
+  }
+
+  .content-wrapper {
+    height: calc(100vh - 240px); /* Adjusted height for mobile */
+    margin: 1.5rem auto;
+  }
+
+  .home-title {
+    font-size: 1.75rem;
+    margin: 0.75rem 0;
+  }
+
+  .home-description {
+    font-size: 1rem;
+    margin: 0 0.75rem 0.75rem 0.75rem;
+  }
+
+  .canvas-wrapper {
+    height: calc(100% - 6rem); /* Account for spacing */
+  }
+
+  .top-bar {
+    top: 15px;
+  }
+
+  .bottom-nav {
+    bottom: 15px;
+  }
+}
+
+/* Small tablets and large phones */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .content-wrapper {
+    padding: 3.5rem 0;
+    margin: 1.5rem 0;
+  }
+
+  .canvas-wrapper {
+    height: calc(100% - 7rem);
+  }
+}
+
+/* Tablets and larger */
+@media screen and (min-width: 769px) {
+  .content-wrapper {
+    padding: 4rem 0;
+    margin: 2rem 0;
+  }
+
+  .canvas-wrapper {
+    height: calc(100% - 8rem);
+  }
+}
+
+/* Enhance the model container visibility */
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.1)
+  );
+  border-radius: 1.5rem;
+  backdrop-filter: blur(4px);
 }

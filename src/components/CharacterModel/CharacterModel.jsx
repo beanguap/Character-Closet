@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { Canvas } from '@react-three/fiber';
 import { useGLTF, OrbitControls } from '@react-three/drei';
 import './charactermodel.css';
@@ -37,7 +38,7 @@ export default function CharacterScene() {
 
       <Canvas
         camera={{ 
-          fov: 70,
+          fov: 40,
           position: [0, 1, 4],
           near: 0.1,
           far: 1000
