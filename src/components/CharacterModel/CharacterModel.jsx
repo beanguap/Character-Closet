@@ -14,22 +14,29 @@ export default function CharacterScene() {
       <div className="rotation-icon">
         <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
           <rect x="10" y="5" width="100" height="30" rx="15" 
-                fill="rgba(255, 255, 255, 0.15)" 
-                stroke="rgba(255, 255, 255, 0.3)" 
+                fill="rgba(255, 255, 255, 0.2)" 
+                stroke="rgba(255, 255, 255, 0.4)" 
                 strokeWidth="1.5"/>
-          <text x="35" y="27" 
+          
+          {/* Center the text */}
+          <text x="45" y="26" 
                 fontFamily="Arial" 
-                fontSize="18" 
+                fontSize="16" 
                 fontWeight="bold" 
-                fill="rgba(255, 255, 255, 0.8)">360°</text>
-          <path d="M85 20 A12 12 0 1 1 85 19.9"
+                fill="rgba(255, 255, 255, 0.9)">360°</text>
+          
+          {/* Create a circular path around the text */}
+          <path d="M 90 20 A 15 15 0 1 1 90 19.9"
                 fill="none"
-                stroke="rgba(255, 255, 255, 0.8)"
+                stroke="rgba(255, 255, 255, 0.9)"
                 strokeWidth="2"
-                strokeLinecap="round"/>
-          <path d="M83 15 L85 20 L80 19"
+                strokeLinecap="round"
+                className="rotating-circle"/>
+          
+          {/* Arrow at the end of the circle */}
+          <path d="M 88 12 L 90 8 L 92 12"
                 fill="none"
-                stroke="rgba(255, 255, 255, 0.8)"
+                stroke="rgba(255, 255, 255, 0.9)"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"/>
