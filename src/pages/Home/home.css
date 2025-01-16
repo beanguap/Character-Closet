@@ -1,3 +1,4 @@
+/* home.css */
 :root {
   --primary-lavender: #E6E6FA;
   --deep-lavender: #9B8ACB;
@@ -11,12 +12,16 @@
   --transition-speed: 0.3s;
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
   background: var(--light-lavender);
   font-family: sans-serif;
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -26,33 +31,41 @@ body {
   align-items: center;
   width: 100%;
   max-width: 480px;
+  height: 100vh;  /* Changed from min-height to height */
   margin: 0 auto;
-  min-height: 100vh;
   border-radius: 2rem;
   background: var(--light-lavender);
   box-shadow: var(--outer-shadow);
   overflow: hidden;
+  position: relative;  /* Added position relative */
 }
 
 .canvas-wrapper {
-  flex: 1;
+  position: absolute;  /* Changed to absolute positioning */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+}
+
+/* Add specific styling for the model canvas wrapper */
+.model-canvas-wrapper {
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 
-.canvas-wrapper canvas {
+.model-canvas-wrapper canvas {
   width: 100% !important;
   height: 100% !important;
-}
-
-.canvas-wrapper:hover {
-  box-shadow: var(--inner-shadow);
+  display: block;  /* Added display block */
 }
 
 .home-title {
+  position: relative;  /* Added z-index positioning */
+  z-index: 1;
   color: var(--dark-lavender);
   font-size: 2rem;
   margin: 1rem 0;
@@ -61,6 +74,8 @@ body {
 }
 
 .home-description {
+  position: relative;  /* Added z-index positioning */
+  z-index: 1;
   color: var(--lavender-gray);
   text-align: center;
   font-size: 1.2rem;
