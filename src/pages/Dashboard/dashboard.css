@@ -5,6 +5,7 @@
   width: 100%;
   padding: 60px 1rem 60px 1rem; /* Further reduced padding */
   background: var(--light-lavender);
+  overflow: hidden; /* Remove scrolling */
 }
 
 .dashboard-content {
@@ -17,7 +18,7 @@
   align-items: center;
   gap: 0.5rem; /* Minimal gap */
   padding: 0.25rem; /* Minimal padding */
-  overflow-y: auto;
+  /* Remove overflow-y: auto */
 }
 
 /* Media queries for responsive design */
@@ -32,17 +33,17 @@
   }
   
   .dashboard-content .clay-card {
-    height: 25vh;
+    height: 18vh; /* Slightly smaller on mobile */
     width: 92%;
   }
 }
 
 /* Import claymorphic card styles but scope them to dashboard */
 .dashboard-content .clay-card {
-  width: 100%; /* Increased width */
+  width: 95%; /* Increased width */
   max-width: 480px;
-  height: 50vh; /* Increased height */
-  max-height: 100vh;
+  height: 20vh; /* Reduced from 50vh */
+  max-height: 20vh; /* Reduced to ensure cards fit */
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(230, 230, 250, 0.2));
   border-radius: 20px;
   box-shadow: var(--outer-shadow);

@@ -18,6 +18,23 @@ const Dashboard = () => {
       <TopBar />
 
       <main className="dashboard-content">
+
+        {/* 
+          Define the laserGlow filter once at the top-level; 
+          we’ll reference it in each card’s path via filter="url(#laserGlow)".
+        */}
+        <svg width="0" height="0" style={{ position: 'absolute' }}>
+          <defs>
+            <filter id="laserGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+
         {/* CARD 1 */}
         <div className="clay-card">
           <div className="card-content">
@@ -38,6 +55,11 @@ const Dashboard = () => {
                  V 20 
                  C 0,10 10,0 20,0 
                  Z"
+              fill="none"
+              stroke="white"
+              strokeWidth="4"
+              strokeLinejoin="round"
+              filter="url(#laserGlow)"
             />
           </svg>
         </div>
@@ -62,6 +84,11 @@ const Dashboard = () => {
                  V 20 
                  C 0,10 10,0 20,0 
                  Z"
+              fill="none"
+              stroke="white"
+              strokeWidth="4"
+              strokeLinejoin="round"
+              filter="url(#laserGlow)"
             />
           </svg>
         </div>
@@ -86,6 +113,11 @@ const Dashboard = () => {
                  V 20 
                  C 0,10 10,0 20,0 
                  Z"
+              fill="none"
+              stroke="white"
+              strokeWidth="4"
+              strokeLinejoin="round"
+              filter="url(#laserGlow)"
             />
           </svg>
         </div>
@@ -110,6 +142,11 @@ const Dashboard = () => {
                  V 20 
                  C 0,10 10,0 20,0 
                  Z"
+              fill="none"
+              stroke="white"
+              strokeWidth="4"
+              strokeLinejoin="round"
+              filter="url(#laserGlow)"
             />
           </svg>
         </div>
