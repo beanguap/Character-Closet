@@ -1,42 +1,45 @@
-import React, { useState } from 'react';
-import { Shirt, HardHat, PantsIcon, Shoe } from 'lucide-react';
+import React from 'react';
+import {
+  FaTshirt,
+  FaHatCowboy,
+  FaShoppingBag,
+  FaShoePrints
+} from 'react-icons/fa';
+
+// MUI components
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+
 import './customizationtoolbar.css';
 
-const CustomizationToolbar = () => {
-  const [activeTab, setActiveTab] = useState('hat');
-
-  const tools = [
-    { id: 'hat', icon: HardHat, label: 'Hats' },
-    { id: 'shirt', icon: Shirt, label: 'Tops' },
-    { id: 'pants', icon: PantsIcon, label: 'Pants' },
-    { id: 'shoes', icon: Shoe, label: 'Shoes' }
-  ];
-
+function CustomizationToolbar() {
   return (
-    <div className="toolbar-wrapper">
-      <div className="toolbar-container">
-        <div className="tools-grid">
-          {tools.map((tool) => (
-            <button
-              key={tool.id}
-              onClick={() => setActiveTab(tool.id)}
-              className={`tool-button ${activeTab === tool.id ? 'active' : ''}`}
-            >
-              <div className="tool-content">
-                <tool.icon 
-                  size={24} 
-                  className={`tool-icon ${activeTab === tool.id ? 'active' : ''}`}
-                />
-                <span className={`tool-label ${activeTab === tool.id ? 'active' : ''}`}>
-                  {tool.label}
-                </span>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
+    <div className="customization-toolbar">
+      <Tooltip title="Tops">
+        <IconButton>
+          <FaTshirt size={24} />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="Hats">
+        <IconButton>
+          <FaHatCowboy size={24} />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="Pants">
+        <IconButton>
+          <FaShoppingBag size={24} />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="Shoes">
+        <IconButton>
+          <FaShoePrints size={24} />
+        </IconButton>
+      </Tooltip>
     </div>
   );
-};
+}
 
 export default CustomizationToolbar;
