@@ -1,0 +1,94 @@
+.toolbar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 32rem;
+    margin: 1rem auto 2rem;
+  }
+  
+  .toolbar-container {
+    width: 100%;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 20px 20px 60px #d9d9d9,
+               -20px -20px 60px #ffffff;
+  }
+  
+  .tools-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .tool-button {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 5px 5px 10px #d9d9d9,
+               -5px -5px 10px #ffffff;
+  }
+  
+  .tool-button:hover:not(.active) {
+    background-color: rgba(243, 244, 246, 0.5);
+  }
+  
+  .tool-button.active {
+    background-color: rgba(239, 246, 255, 0.8);
+    transform: scale(1.05);
+    box-shadow: inset 5px 5px 10px #d9d9d9,
+                inset -5px -5px 10px #ffffff;
+  }
+  
+  .tool-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .tool-icon {
+    color: #4B5563;
+    transition: color 0.2s ease;
+  }
+  
+  .tool-icon.active {
+    color: #2563EB;
+  }
+  
+  .tool-label {
+    font-size: 0.75rem;
+    color: #4B5563;
+    transition: color 0.2s ease;
+  }
+  
+  .tool-label.active {
+    color: #2563EB;
+  }
+  
+  /* Remove focus outline but maintain accessibility */
+  .tool-button:focus {
+    outline: none;
+  }
+  
+  .tool-button:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+  }
+  
+  /* Optional: Add media query for better mobile experience */
+  @media (max-width: 480px) {
+    .toolbar-container {
+      padding: 0.75rem;
+    }
+    
+    .tool-button {
+      padding: 0.5rem;
+    }
+  }
