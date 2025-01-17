@@ -19,27 +19,13 @@ export default function CharacterScene() {
                 strokeWidth="1.5"/>
           
           {/* Center the text */}
-          <text x="45" y="26" 
+          <text x="50%" y="50%" 
                 fontFamily="Arial" 
                 fontSize="16" 
                 fontWeight="bold" 
-                fill="rgba(255, 255, 255, 0.9)">360°</text>
-          
-          {/* Create a circular path around the text */}
-          <path d="M 90 20 A 15 15 0 1 1 90 19.9"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.9)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                className="rotating-circle"/>
-          
-          {/* Arrow at the end of the circle */}
-          <path d="M 88 12 L 90 8 L 92 12"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.9)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"/>
+                fill="rgba(255, 255, 255, 0.9)"
+                dominantBaseline="middle"
+                textAnchor="middle">360°</text>          
         </svg>
       </div>
 
