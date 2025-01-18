@@ -1,17 +1,31 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { Suspense, lazy } from "react";
 
 // Lazy load components for better performance
-const Home = lazy(() => import('./pages/Home/Home'));
-const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
-const OutfitDetection = lazy(() => import('./pages/OutfitDetection/OutfitDetection'));
-const Customization = lazy(() => import('./pages/Customization/Customization'));
-const Wardrobe = lazy(() => import('./pages/Wardrobe/Wardrobe'));
-const LoadingFallback = lazy(() => import('./components/LoadingFallback/LoadingFallback'));
+const Home = lazy(() => import("./pages/Home/Home"));
+const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const OutfitDetection = lazy(
+  () => import("./pages/OutfitDetection/OutfitDetection"),
+);
+const Customization = lazy(() => import("./pages/Customization/Customization"));
+const Wardrobe = lazy(() => import("./pages/Wardrobe/Wardrobe"));
+const LoadingFallback = lazy(
+  () => import("./components/LoadingFallback/LoadingFallback"),
+);
 
 const App = () => {
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
           <Route path="/" element={<Home />} />

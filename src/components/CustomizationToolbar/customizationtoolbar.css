@@ -1,94 +1,115 @@
+/* customizationtoolbar.css */
 .toolbar-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
-    max-width: 32rem;
-    margin: 1rem auto 2rem;
-  }
-  
-  .toolbar-container {
-    width: 100%;
-    background: linear-gradient(145deg, #ffffff, #e6e6e6);
-    border-radius: 0.75rem;
-    padding: 1rem;
-    box-shadow: 20px 20px 60px #d9d9d9,
-               -20px -20px 60px #ffffff;
-  }
-  
-  .tools-grid {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.customization-toolbar {
+    position: relative;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .tool-button {
-    flex: 1;
+    background: linear-gradient(
+        145deg,
+        var(--primary-lavender),
+        var(--light-lavender)
+    );
+    border-radius: 1rem;
+    box-shadow: var(--outer-shadow);
+    transition: all var(--transition-speed) ease;
+    overflow: hidden;
+}
+
+.tools-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0.75rem;
-    border: none;
-    border-radius: 0.5rem;
-    background: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 5px 5px 10px #d9d9d9,
-               -5px -5px 10px #ffffff;
-  }
-  
-  .tool-button:hover:not(.active) {
-    background-color: rgba(243, 244, 246, 0.5);
-  }
-  
-  .tool-button.active {
-    background-color: rgba(239, 246, 255, 0.8);
-    transform: scale(1.05);
-    box-shadow: inset 5px 5px 10px #d9d9d9,
-                inset -5px -5px 10px #ffffff;
-  }
-  
-  .tool-content {
+    transition: all var(--transition-speed) ease;
+}
+
+.customization-toolbar:not(.expanded) {
+    padding-right: 1rem; /* Reduced padding to bring arrow closer */
+}
+
+.collapsed-icons {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
-  }
-  
-  .tool-icon {
-    color: #4B5563;
-    transition: color 0.2s ease;
-  }
-  
-  .tool-icon.active {
-    color: #2563EB;
-  }
-  
-  .tool-label {
-    font-size: 0.75rem;
-    color: #4B5563;
-    transition: color 0.2s ease;
-  }
-  
-  .tool-label.active {
-    color: #2563EB;
-  }
-  
-  /* Remove focus outline but maintain accessibility */
-  .tool-button:focus {
-    outline: none;
-  }
-  
-  .tool-button:focus-visible {
-    outline: 2px solid #2563EB;
-    outline-offset: 2px;
-  }
-  
-  /* Optional: Add media query for better mobile experience */
-  @media (max-width: 480px) {
-    .toolbar-container {
-      padding: 0.75rem;
+    gap: 0.75rem; /* Slightly reduced gap between icons */
+    padding: 0.5rem;
+}
+
+.arrow-button.right {
+    right: -1px; /* Moved closer to icons (was -12px) */
+}
+
+/* Optional: adjust the collapsed icons size for better visual balance */
+.collapsed-icons svg {
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+}
+
+/* Arrow buttons */
+/* customizationtoolbar.css */
+.arrow-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(
+        --dark-lavender
+    ); /* Changed background for better contrast */
+    border: none;
+    border-radius: 50%;
+    width: 28px; /* Increased size */
+    height: 28px; /* Increased size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--outer-shadow);
+    transition: all var(--transition-speed) ease;
+    z-index: 2;
+}
+
+.arrow-button svg {
+    color: var(--light-lavender); /* Light color for contrast */
+    width: 16px; /* Explicit size for the icon */
+    height: 16px;
+}
+
+.arrow-button:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: var(--deep-lavender);
+}
+
+.arrow-button:active {
+    box-shadow: var(--inner-shadow);
+    transform: translateY(-50%) scale(0.95);
+}
+
+.arrow-button.right {
+    right: -14px; /* Adjusted position */
+    border: 2px solid var(--light-lavender); /* Added border for extra visibility */
+}
+
+/* Mobile specific adjustments */
+@media screen and (max-width: 480px) {
+    .arrow-button {
+        width: 32px; /* Even larger on mobile */
+        height: 32px;
     }
-    
-    .tool-button {
-      padding: 0.5rem;
+
+    .arrow-button svg {
+        width: 18px; /* Larger icon on mobile */
+        height: 18px;
     }
-  }
+
+    .arrow-button.right {
+        right: -16px;
+    }
+
+    .collapsed-icons {
+        padding-right: 0.75rem; /* Added more space for the arrow on mobile */
+    }
+}
