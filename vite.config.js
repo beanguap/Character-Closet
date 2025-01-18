@@ -5,8 +5,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     mimeTypes: {
-      'jsx': 'text/javascript',
-      'js': 'text/javascript',
+      'jsx': 'application/javascript',
+      'js': 'application/javascript',
     },
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
 })
