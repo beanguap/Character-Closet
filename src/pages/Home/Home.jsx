@@ -1,31 +1,38 @@
-import CharacterScene from '../../components/CharacterModel/CharacterModel';
-import TopBar from '../../components/TopBar/TopBar';
-import BottomNav from '../../components/BottomNav/BottomNav';
-import CustomizationToolbar from '../../components/CustomizationToolbar/CustomizationToolbar';
-import './home.css';
+import React, { useState } from 'react'
+import CharacterModel from '../../components/CharacterModel'
+import CustomizationToolbar from '../../components/CustomizationToolbar'
+import './home.css'
 
-const Home = () => {
+export default function Home() {
+  // For example, separate state for shirt, pants, shoes, hat, etc.
+  const [shirtColor, setShirtColor] = useState('#000000')
+  const [pantsColor, setPantsColor] = useState('#333333')
+  const [shoesColor, setShoesColor] = useState('#555555')
+  const [hatColor, setHatColor] = useState('#777777')
+
   return (
     <div className="home-container">
-      <TopBar />
+      {/* Top bar or other components here... */}
 
-      <div className="content-wrapper">
-        <h1 className="home-title">Avatar Customizer</h1>
-        
-        <CustomizationToolbar />
+      {/* Pass "confirm" callbacks to the toolbar */}
+      <CustomizationToolbar
+        onShirtColorConfirm={setShirtColor}
+        onPantsColorConfirm={setPantsColor}
+        onShoesColorConfirm={setShoesColor}
+        onHatColorConfirm={setHatColor}
+      />
 
-        <div className="canvas-wrapper">
-          <CharacterScene />
-        </div>
-
-        <p className="home-description">
-          Rotate and customize your 3D character!
-        </p>
+      <div className="canvas-wrapper">
+        {/* Pass final color states to the 3D model */}
+        <CharacterModel
+          shirtColor={shirtColor}
+          pantsColor={pantsColor}
+          shoesColor={shoesColor}
+          hatColor={hatColor}
+        />
       </div>
 
-      <BottomNav />
+      {/* Bottom nav or other UI... */}
     </div>
-  );
-};
-
-export default Home;
+  )
+}
