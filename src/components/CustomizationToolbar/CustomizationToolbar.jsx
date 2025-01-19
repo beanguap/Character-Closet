@@ -23,28 +23,31 @@ export default function CustomizationToolbar({
   const [localHatColor, setLocalHatColor] = useState("#777777");
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleExpanded = () => setIsExpanded(!isExpanded);
+  const toggleExpanded = () => setIsExpanded((prev) => !prev);
 
   return (
     <div className="toolbar-wrapper">
       <div className={`customization-toolbar ${isExpanded ? "expanded" : ""}`}>
-        {/* Left Arrow - Only show when expanded */}
+        {/* Left arrow - only visible when expanded */}
         {isExpanded && (
           <button className="arrow-button left" onClick={toggleExpanded}>
             <FaChevronLeft />
           </button>
         )}
 
-        {/* Main Tools */}
         <div className="tools-container">
           {isExpanded ? (
-            // Expanded View
-            <>
-              <Tooltip title="Shirt" placement="top">
+            /* ---------- EXPANDED VIEW with SWIPE SCROLL ---------- */
+            <div className="expanded-content">
+              {/* Horizontally scrollable container */}
+              <div className="tools-scroll-container">
+                {/* Shirt */}
                 <div className="toolbar-row">
-                  <IconButton size="small">
-                    <FaTshirt color="var(--dark-lavender)" />
-                  </IconButton>
+                  <Tooltip title="Shirt" placement="top">
+                    <IconButton size="small">
+                      <FaTshirt color="var(--dark-lavender)" />
+                    </IconButton>
+                  </Tooltip>
                   <input
                     type="color"
                     value={localShirtColor}
@@ -54,13 +57,14 @@ export default function CustomizationToolbar({
                     ✓
                   </button>
                 </div>
-              </Tooltip>
 
-              <Tooltip title="Pants" placement="top">
+                {/* Pants */}
                 <div className="toolbar-row">
-                  <IconButton size="small">
-                    <FaShoppingBag color="var(--dark-lavender)" />
-                  </IconButton>
+                  <Tooltip title="Pants" placement="top">
+                    <IconButton size="small">
+                      <FaShoppingBag color="var(--dark-lavender)" />
+                    </IconButton>
+                  </Tooltip>
                   <input
                     type="color"
                     value={localPantsColor}
@@ -70,29 +74,33 @@ export default function CustomizationToolbar({
                     ✓
                   </button>
                 </div>
-              </Tooltip>
 
-              <Tooltip title="Shoes" placement="top">
+                {/* Shoes */}
                 <div className="toolbar-row">
-                  <IconButton size="small">
-                    <FaShoePrints color="var(--dark-lavender)" />
-                  </IconButton>
+                  <Tooltip title="Shoes" placement="top">
+                    <IconButton size="small">
+                      <FaShoePrints color="var(--dark-lavender)" />
+                    </IconButton>
+                  </Tooltip>
                   <input
                     type="color"
                     value={localShoesColor}
                     onChange={(e) => setLocalShoesColor(e.target.value)}
                   />
-                  <button onClick={() => onShoesColorConfirm(localShoesColor)}>
+                  <button
+                    onClick={() => onShoesColorConfirm(localShoesColor)}
+                  >
                     ✓
                   </button>
                 </div>
-              </Tooltip>
 
-              <Tooltip title="Hat" placement="top">
+                {/* Hat */}
                 <div className="toolbar-row">
-                  <IconButton size="small">
-                    <FaHatCowboy color="var(--dark-lavender)" />
-                  </IconButton>
+                  <Tooltip title="Hat" placement="top">
+                    <IconButton size="small">
+                      <FaHatCowboy color="var(--dark-lavender)" />
+                    </IconButton>
+                  </Tooltip>
                   <input
                     type="color"
                     value={localHatColor}
@@ -102,10 +110,20 @@ export default function CustomizationToolbar({
                     ✓
                   </button>
                 </div>
-              </Tooltip>
-            </>
+
+                {/*
+                  Add more rows if needed.
+                  The user can horizontally scroll to reveal them all.
+                */}
+              </div>
+
+              {/* Swipe indicator at the bottom (optional) */}
+              <div className="swipe-indicator">
+                <p>Swipe left / right to see more options</p>
+              </div>
+            </div>
           ) : (
-            // Collapsed View - Just show current active icons
+            /* ---------- COLLAPSED VIEW ---------- */
             <div className="collapsed-icons">
               <FaTshirt color="var(--dark-lavender)" />
               <FaShoppingBag color="var(--dark-lavender)" />
@@ -115,7 +133,7 @@ export default function CustomizationToolbar({
           )}
         </div>
 
-        {/* Right Arrow - Only show when collapsed */}
+        {/* Right arrow - only visible when collapsed */}
         {!isExpanded && (
           <button className="arrow-button right" onClick={toggleExpanded}>
             <FaChevronRight />

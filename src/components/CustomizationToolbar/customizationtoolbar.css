@@ -1,64 +1,153 @@
-/* customizationtoolbar.css */
-.toolbar-wrapper {
+/*********************************************
+ * LAYOUT & CLAYMORPHIC BASE STYLES
+ *********************************************/
+ .toolbar-wrapper {
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
-}
-
-.customization-toolbar {
+  }
+  
+  /* Main toolbar container with clay style */
+  .customization-toolbar {
     position: relative;
     display: flex;
     align-items: center;
+  
+    /* Clay look: gradient + soft shadow */
     background: linear-gradient(
-        145deg,
-        var(--primary-lavender),
-        var(--light-lavender)
+      145deg,
+      var(--primary-lavender),
+      var(--light-lavender)
     );
     border-radius: 1rem;
     box-shadow: var(--outer-shadow);
     transition: all var(--transition-speed) ease;
-    /* Allow the arrow to be visible even if it "overflows" the container */
-    overflow: visible;
-}
-
-.tools-container {
+  
+    /* Some padding so content doesn't stick to edges */
+    padding: 0.5rem 1rem;
+    overflow: hidden; /* Because arrows are inside, we can safely hide overflow */
+  }
+  
+  /* Keep the same clay style whether expanded or not */
+  .customization-toolbar.expanded,
+  .customization-toolbar:not(.expanded) {
+    background: linear-gradient(
+      145deg,
+      var(--primary-lavender),
+      var(--light-lavender)
+    );
+    box-shadow: var(--outer-shadow);
+  }
+  
+  /*********************************************
+   * TOOLS CONTAINER
+   *********************************************/
+  .tools-container {
+    display: flex;
+    align-items: center;
+    flex: 1; /* push arrow(s) aside, so container can expand */
+    justify-content: center; /* center the icons or scroller */
+  }
+  
+  /* Collapsed icons row */
+  .collapsed-icons {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem;
-    transition: all var(--transition-speed) ease;
-}
-
-.customization-toolbar:not(.expanded) {
-    padding-right: 1rem; /* Reduced padding to bring arrow closer */
-}
-
-.collapsed-icons {
+    padding: 0.5rem 0;
+  }
+  
+  /*********************************************
+   * EXPANDED CONTENT & SWIPE SCROLL
+   *********************************************/
+  .expanded-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* fill available space */
+    gap: 0.5rem; /* space between scroller & indicator */
+  }
+  
+  /* Horizontally scrollable container for color pickers */
+  .tools-scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* key for horizontal scroll on mobile */
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    scroll-snap-type: x mandatory; /* optional "snap" effect */
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+  
+  /* Each toolbar row is an item in the horizontal scroller */
+  .toolbar-row {
     display: flex;
     align-items: center;
-    gap: 0.75rem; /* Slightly reduced gap between icons */
-    padding: 0.5rem;
-}
-
-.arrow-button.right {
-    /* Position the arrow inside the toolbar bounds */
-    right: 0.5rem;
-}
-
-/* Optional: adjust the collapsed icons size for better visual balance */
-.collapsed-icons svg {
-    width: 18px;
-    height: 18px;
-    opacity: 0.8;
-}
-
-/* Arrow buttons */
-.arrow-button {
+    gap: 0.5rem;
+  
+    /* Clay look again inside each row */
+    background: linear-gradient(
+      145deg,
+      var(--primary-lavender),
+      var(--light-lavender)
+    );
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    box-shadow: var(--outer-shadow);
+  
+    flex: 0 0 auto;        /* don't shrink, so they line up horizontally */
+    scroll-snap-align: start;
+    transition: box-shadow var(--transition-speed) ease;
+  }
+  
+  /* Hover effect for each row */
+  .toolbar-row:hover {
+    box-shadow: var(--inner-shadow);
+  }
+  
+  /*********************************************
+   * COLOR PICKER & BUTTONS
+   *********************************************/
+  .toolbar-row input[type="color"] {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: var(--inner-shadow);
+    cursor: pointer;
+    transition: transform var(--transition-speed) ease;
+  }
+  .toolbar-row input[type="color"]:hover {
+    transform: scale(1.05);
+  }
+  
+  .toolbar-row button {
+    background: var(--dark-lavender);
+    color: var(--light-lavender);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    box-shadow: var(--outer-shadow);
+    transition: transform var(--transition-speed) ease;
+  }
+  .toolbar-row button:hover {
+    box-shadow: var(--inner-shadow);
+    transform: scale(1.05);
+  }
+  
+  /*********************************************
+   * ARROW BUTTONS
+   *********************************************/
+  .arrow-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+  
     background: var(--dark-lavender);
-    border: none;
+    border: 2px solid var(--light-lavender);
     border-radius: 50%;
     width: 28px;
     height: 28px;
@@ -67,49 +156,71 @@
     justify-content: center;
     cursor: pointer;
     box-shadow: var(--outer-shadow);
-    transition: all var(--transition-speed) ease;
+    transition: transform var(--transition-speed) ease;
     z-index: 2;
-}
-
-.arrow-button svg {
+  }
+  
+  .arrow-button svg {
     color: var(--light-lavender);
     width: 16px;
     height: 16px;
-}
-
-.arrow-button:hover {
+  }
+  
+  .arrow-button:hover {
     transform: translateY(-50%) scale(1.1);
     background: var(--deep-lavender);
-}
-
-.arrow-button:active {
+  }
+  .arrow-button:active {
     box-shadow: var(--inner-shadow);
     transform: translateY(-50%) scale(0.95);
-}
-
-/* Extra visibility for the right arrow if desired */
-.arrow-button.right {
-    border: 2px solid var(--light-lavender);
-}
-
-/* Mobile specific adjustments */
-@media screen and (max-width: 480px) {
+  }
+  
+  /* Left arrow (expanded mode) inside container bounds */
+  .arrow-button.left {
+    left: 0.5rem;
+  }
+  
+  /* Right arrow (collapsed mode) inside container bounds */
+  .arrow-button.right {
+    right: 0.5rem;
+  }
+  
+  /*********************************************
+   * SWIPE INDICATOR
+   *********************************************/
+  .swipe-indicator {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-align: center;
+  }
+  .swipe-indicator p {
+    margin: 0;
+  }
+  
+  /*********************************************
+   * MOBILE ADJUSTMENTS
+   *********************************************/
+  @media screen and (max-width: 480px) {
+    .customization-toolbar {
+      padding: 0.5rem;
+    }
+  
     .arrow-button {
-        width: 32px;
-        height: 32px;
+      width: 32px;
+      height: 32px;
     }
-
+  
     .arrow-button svg {
-        width: 18px;
-        height: 18px;
+      width: 18px;
+      height: 18px;
     }
-
-    .arrow-button.right {
-        /* You can tweak this further if needed */
-        right: 0.5rem;
+  
+    .tools-scroll-container {
+      gap: 0.75rem;
     }
-
-    .collapsed-icons {
-        padding-right: 0.75rem;
+  
+    .toolbar-row {
+      padding: 0.5rem;
     }
-}
+  }
+  
