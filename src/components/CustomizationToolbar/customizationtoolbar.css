@@ -17,7 +17,8 @@
     border-radius: 1rem;
     box-shadow: var(--outer-shadow);
     transition: all var(--transition-speed) ease;
-    overflow: hidden;
+    /* Allow the arrow to be visible even if it "overflows" the container */
+    overflow: visible;
 }
 
 .tools-container {
@@ -40,7 +41,8 @@
 }
 
 .arrow-button.right {
-    right: -1px; /* Moved closer to icons (was -12px) */
+    /* Position the arrow inside the toolbar bounds */
+    right: 0.5rem;
 }
 
 /* Optional: adjust the collapsed icons size for better visual balance */
@@ -51,18 +53,15 @@
 }
 
 /* Arrow buttons */
-/* customizationtoolbar.css */
 .arrow-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(
-        --dark-lavender
-    ); /* Changed background for better contrast */
+    background: var(--dark-lavender);
     border: none;
     border-radius: 50%;
-    width: 28px; /* Increased size */
-    height: 28px; /* Increased size */
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,8 +72,8 @@
 }
 
 .arrow-button svg {
-    color: var(--light-lavender); /* Light color for contrast */
-    width: 16px; /* Explicit size for the icon */
+    color: var(--light-lavender);
+    width: 16px;
     height: 16px;
 }
 
@@ -88,28 +87,29 @@
     transform: translateY(-50%) scale(0.95);
 }
 
+/* Extra visibility for the right arrow if desired */
 .arrow-button.right {
-    right: -14px; /* Adjusted position */
-    border: 2px solid var(--light-lavender); /* Added border for extra visibility */
+    border: 2px solid var(--light-lavender);
 }
 
 /* Mobile specific adjustments */
 @media screen and (max-width: 480px) {
     .arrow-button {
-        width: 32px; /* Even larger on mobile */
+        width: 32px;
         height: 32px;
     }
 
     .arrow-button svg {
-        width: 18px; /* Larger icon on mobile */
+        width: 18px;
         height: 18px;
     }
 
     .arrow-button.right {
-        right: -16px;
+        /* You can tweak this further if needed */
+        right: 0.5rem;
     }
 
     .collapsed-icons {
-        padding-right: 0.75rem; /* Added more space for the arrow on mobile */
+        padding-right: 0.75rem;
     }
 }

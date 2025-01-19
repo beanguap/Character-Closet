@@ -48,45 +48,50 @@ function Home() {
 
           {/* Rotation indicator */}
           <div className="rotation-icon">
-            <svg
-              viewBox="0 0 120 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="120"
-                height="40"
-                rx="20"
-                fill="rgba(255, 255, 255, 0.8)"
-              />
-              <path
-                d="M45 20C45 15.5817 48.5817 12 53 12C57.4183 12 61 15.5817 61 20"
-                stroke="var(--dark-lavender)"
-                strokeWidth="2"
-              />
-              <path
-                d="M61 20C61 24.4183 57.4183 28 53 28C48.5817 28 45 24.4183 45 20"
-                stroke="var(--dark-lavender)"
-                strokeWidth="2"
-              />
-              <path
-                d="M60 17L61 20L64 19"
-                stroke="var(--dark-lavender)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <text
-                x="70"
-                y="24"
-                fill="var(--dark-lavender)"
-                fontSize="12"
-                fontFamily="sans-serif"
-              >
-                Rotate
-              </text>
-            </svg>
-          </div>
+  <svg
+    viewBox="0 0 120 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      width="120"
+      height="40"
+      rx="20"
+      fill="rgba(255, 255, 255, 0.8)"
+    />
+    {/* Upper arc */}
+    <path
+      d="M45 20C45 15.5817 48.5817 12 53 12C57.4183 12 61 15.5817 61 20"
+      stroke="var(--dark-lavender)"
+      strokeWidth="2"
+    />
+    {/* Lower arc */}
+    <path
+      d="M61 20C61 24.4183 57.4183 28 53 28C48.5817 28 45 24.4183 45 20"
+      stroke="var(--dark-lavender)"
+      strokeWidth="2"
+    />
+    {/* Arrow tip */}
+    <path
+      d="M60 17L61 20L64 19"
+      stroke="var(--dark-lavender)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    {/* Change "Rotate" to "360" */}
+    <text
+      x="70"
+      y="24"
+      fill="var(--dark-lavender)"
+      fontSize="12"
+      fontFamily="sans-serif"
+    >
+      360
+    </text>
+  </svg>
+</div>
+
         </div>
       </div>
 
