@@ -1,29 +1,37 @@
 // src/pages/OutfitDetection/OutfitDetection.jsx
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CameraScanner from '../../components/CameraScanner/CameraScanner';
+import Webcam from 'react-webcam';
 import TopBar from '../../components/TopBar/TopBar';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import { detectOutfit } from '../../config/api';
 import './OutfitDetection.css';
+import { Camera } from 'lucide-react';
 
 const OutfitDetection = () => {
   const [showCamera, setShowCamera] = useState(false);
   const [detectedItems, setDetectedItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const webcamRef = useRef(null);
   const navigate = useNavigate();
 
-  const handleCapture = async (imageFile) => {
+  const handleCapture = async () => {
+    if (!webcamRef.current) return;
+    
     try {
       setIsLoading(true);
       setError(null);
 
+      const imageSrc = webcamRef.current.getScreenshot();
+      
+      // Convert base64 to blob
+      const response = await fetch(imageSrc);
+      const blob = await response.blob();
+      const imageFile = new File([blob], "capture.jpg", { type: "image/jpeg" });
+
       const results = await detectOutfit(imageFile);
       setDetectedItems(results.detectedItems || []);
-      
-      // Close camera after successful detection
-      setShowCamera(false);
       
     } catch (err) {
       setError('Failed to analyze outfit. Please try again.');
@@ -38,42 +46,65 @@ const OutfitDetection = () => {
       <TopBar />
 
       <main className="detection-content">
-        {showCamera ? (
-          <CameraScanner 
-            onCapture={handleCapture}
-            onClose={() => setShowCamera(false)}
-          />
-        ) : (
-          <div className="detection-tools">
-            <button 
-              className="scanner-btn"
-              onClick={() => setShowCamera(true)}
-            >
-              Open Camera Scanner
-            </button>
-            
-            {/* Display detected items */}
-            {detectedItems.length > 0 && (
-              <div className="detected-items">
-                <h3>Detected Items:</h3>
-                {detectedItems.map((item, index) => (
-                  <div key={index} className="detected-item">
-                    <span className="item-label">{item.label}</span>
-                    <span className="item-confidence">
-                      {(item.confidence * 100).toFixed(1)}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {error && (
-              <div className="error-message">
-                {error}
-              </div>
+        <div className="detection-tools">
+          {/* Square camera viewport with shutter effect */}
+          <div className={`camera-viewport ${showCamera ? 'active' : ''}`}>
+            <div className="shutter top"></div>
+            <div className="shutter bottom"></div>
+            {showCamera && (
+              <Webcam
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat="image/jpeg"
+                videoConstraints={{
+                  width: 720,
+                  height: 720,
+                  facingMode: "environment"
+                }}
+                className="webcam-preview"
+              />
             )}
           </div>
-        )}
+
+          <button 
+            className="scanner-btn"
+            onClick={() => setShowCamera(prev => !prev)}
+          >
+            <Camera className="icon" size={24} />
+            {showCamera ? 'Deactivate Scanner' : 'Activate Scanner'}
+          </button>
+          
+          {showCamera && (
+            <button 
+              className="capture-btn"
+              onClick={handleCapture}
+              disabled={isLoading}
+            >
+              Capture
+            </button>
+          )}
+
+          {/* Display detected items */}
+          {detectedItems.length > 0 && (
+            <div className="detected-items">
+              <h3>Detected Items:</h3>
+              {detectedItems.map((item, index) => (
+                <div key={index} className="detected-item">
+                  <span className="item-label">{item.label}</span>
+                  <span className="item-confidence">
+                    {(item.confidence * 100).toFixed(1)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+        </div>
       </main>
 
       <BottomNav />

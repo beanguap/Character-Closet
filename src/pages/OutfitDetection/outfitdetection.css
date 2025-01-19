@@ -1,0 +1,176 @@
+.detection-tools {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    position: relative;
+  }
+  
+  .camera-viewport {
+    width: 280px;
+    height: 280px;
+    background: var(--dark-lavender);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--outer-shadow);
+    margin: 1rem auto;
+  }
+  
+  .shutter {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: var(--primary-lavender);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+  }
+  
+  .shutter.top {
+    top: 0;
+    transform-origin: top;
+  }
+  
+  .shutter.bottom {
+    bottom: 0;
+    transform-origin: bottom;
+  }
+  
+  .camera-viewport.active .shutter.top {
+    transform: scaleY(0);
+  }
+  
+  .camera-viewport.active .shutter.bottom {
+    transform: scaleY(0);
+  }
+  
+  .webcam-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .capture-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    background: var(--dark-lavender);
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--outer-shadow);
+    transition: all var(--transition-speed) ease;
+  }
+  
+  .capture-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--inner-shadow);
+  }
+  
+  .capture-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+.scanner-btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  background: var(--dark-lavender);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--outer-shadow);
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scanner-btn .icon {
+  color: white;
+}
+
+.scanner-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--inner-shadow);
+}
+
+.scanner-btn:active {
+  transform: translateY(1px);
+}
+
+.scanner-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.outfit-detection {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 60px 1rem 60px 1rem; /* Reduced padding */
+  background: var(--light-lavender);
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.detection-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: calc(100vh - 180px); /* Adjusted to account for reduced padding */
+  background: linear-gradient(
+    145deg,
+    var(--primary-lavender),
+    var(--light-lavender)
+  );
+  border-radius: 2rem;
+  box-shadow: var(--outer-shadow);
+  margin: 1rem auto; /* Reduced margin */
+  padding: 1rem; /* Reduced padding */
+}
+
+/* TopBar positioning */
+:global(.top-bar) {
+  position: fixed;
+  top: 10px; /* Reduced from 20px */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* BottomNav positioning */
+:global(.bottom-nav) {
+  position: fixed;
+  bottom: 10px; /* Reduced from 20px */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* Mobile responsive adjustments */
+@media screen and (max-width: 480px) {
+  .outfit-detection {
+    padding: 55px 0.5rem 55px 0.5rem;
+  }
+
+  .detection-content {
+    height: calc(100vh - 160px);
+    margin: 0.5rem auto;
+  }
+
+  :global(.top-bar) {
+    top: 15px;
+  }
+
+  :global(.bottom-nav) {
+    bottom: 15px;
+  }
+}

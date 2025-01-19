@@ -21,7 +21,10 @@ const BottomNav = () => {
       >
         <Home />
       </IconButton>
-      <IconButton className="nav-icon">
+      <IconButton 
+        className={`nav-icon ${isActive('/outfit-detection') ? 'active' : ''}`}
+        onClick={() => navigate('/outfit-detection')}
+      >
         <Camera />
       </IconButton>
       <IconButton className="nav-icon">
