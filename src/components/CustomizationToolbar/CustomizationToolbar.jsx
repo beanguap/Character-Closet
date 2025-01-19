@@ -28,20 +28,22 @@ export default function CustomizationToolbar({
   return (
     <div className="toolbar-wrapper">
       <div className={`customization-toolbar ${isExpanded ? "expanded" : ""}`}>
-        {/* Left arrow - only visible when expanded */}
+        {/* Left arrow only in expanded mode */}
         {isExpanded && (
-          <button className="arrow-button left" onClick={toggleExpanded}>
-            <FaChevronLeft />
-          </button>
+          <div className="arrow-button-container">
+            <button className="arrow-button left" onClick={toggleExpanded}>
+              <FaChevronLeft />
+            </button>
+          </div>
         )}
 
         <div className="tools-container">
           {isExpanded ? (
-            /* ---------- EXPANDED VIEW with SWIPE SCROLL ---------- */
+            /* -------- EXPANDED with horizontal swipe -------- */
             <div className="expanded-content">
-              {/* Horizontally scrollable container */}
+              {/* Scrollable row of color pickers */}
               <div className="tools-scroll-container">
-                {/* Shirt */}
+                {/* Example 1: Shirt */}
                 <div className="toolbar-row">
                   <Tooltip title="Shirt" placement="top">
                     <IconButton size="small">
@@ -58,7 +60,7 @@ export default function CustomizationToolbar({
                   </button>
                 </div>
 
-                {/* Pants */}
+                {/* Example 2: Pants */}
                 <div className="toolbar-row">
                   <Tooltip title="Pants" placement="top">
                     <IconButton size="small">
@@ -75,7 +77,7 @@ export default function CustomizationToolbar({
                   </button>
                 </div>
 
-                {/* Shoes */}
+                {/* Example 3: Shoes */}
                 <div className="toolbar-row">
                   <Tooltip title="Shoes" placement="top">
                     <IconButton size="small">
@@ -94,7 +96,7 @@ export default function CustomizationToolbar({
                   </button>
                 </div>
 
-                {/* Hat */}
+                {/* Example 4: Hat */}
                 <div className="toolbar-row">
                   <Tooltip title="Hat" placement="top">
                     <IconButton size="small">
@@ -111,19 +113,16 @@ export default function CustomizationToolbar({
                   </button>
                 </div>
 
-                {/*
-                  Add more rows if needed.
-                  The user can horizontally scroll to reveal them all.
-                */}
+                {/* More items... */}
               </div>
 
-              {/* Swipe indicator at the bottom (optional) */}
+              {/* Centered swipe indicator */}
               <div className="swipe-indicator">
-                <p>Swipe left / right to see more options</p>
+                <p>Swipe left / right to see more</p>
               </div>
             </div>
           ) : (
-            /* ---------- COLLAPSED VIEW ---------- */
+            /* -------- COLLAPSED view -------- */
             <div className="collapsed-icons">
               <FaTshirt color="var(--dark-lavender)" />
               <FaShoppingBag color="var(--dark-lavender)" />
@@ -133,7 +132,7 @@ export default function CustomizationToolbar({
           )}
         </div>
 
-        {/* Right arrow - only visible when collapsed */}
+        {/* Right arrow only in collapsed mode */}
         {!isExpanded && (
           <button className="arrow-button right" onClick={toggleExpanded}>
             <FaChevronRight />

@@ -1,226 +1,231 @@
-/*********************************************
- * LAYOUT & CLAYMORPHIC BASE STYLES
- *********************************************/
+/*************************************************
+ * BASIC WRAPPER & CLAYMORPHISM
+ *************************************************/
  .toolbar-wrapper {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Main toolbar container with clay style */
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Main container */
+.customization-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  /* Simplified background */
+  background: var(--primary-lavender);
+  border-radius: 1rem;
+  box-shadow: var(--outer-shadow);
+
+  transition: all var(--transition-speed) ease;
+  padding: 0.5rem 1rem;
+
+  /* IMPORTANT: allow child horizontal scroll to work */
+  overflow: hidden;
+}
+
+/* Remove the duplicate gradient styles */
+.customization-toolbar.expanded,
+.customization-toolbar:not(.expanded) {
+  background: var(--primary-lavender);
+  box-shadow: var(--outer-shadow);
+}
+
+/*************************************************
+ * CONTAINERS
+ *************************************************/
+.tools-container {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Use remaining horizontal space */
+  justify-content: center; 
+}
+
+/* Collapsed icons */
+.collapsed-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+/* In expanded mode, a vertical stack: scroller + indicator */
+.expanded-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/*************************************************
+ * HORIZONTAL SCROLL CONTAINER
+ *************************************************/
+.tools-scroll-container {
+  display: flex;
+  flex-wrap: nowrap;             /* do not wrap; keep horizontal */
+  overflow-x: auto;             /* horizontal scroll on smaller widths */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory; /* optional "snap" scrolling */
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+/* Each color-picker row is a separate snap item */
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  /* Clay look again */
+  background: linear-gradient(
+    145deg,
+    var(--primary-lavender),
+    var(--light-lavender)
+  );
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  box-shadow: var(--outer-shadow);
+
+  flex: 0 0 auto;       /* keep width; do not shrink */
+  scroll-snap-align: start;
+  transition: box-shadow var(--transition-speed) ease;
+}
+
+.toolbar-row:hover {
+  box-shadow: var(--inner-shadow);
+}
+
+/*************************************************
+ * COLOR PICKER & CHECKMARK BUTTON
+ *************************************************/
+.toolbar-row input[type="color"] {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: var(--inner-shadow);
+  cursor: pointer;
+  transition: transform var(--transition-speed) ease;
+}
+.toolbar-row input[type="color"]:hover {
+  transform: scale(1.05);
+}
+
+.toolbar-row button {
+  background: var(--dark-lavender);
+  color: var(--light-lavender);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  box-shadow: var(--outer-shadow);
+  transition: transform var (--transition-speed) ease;
+}
+.toolbar-row button:hover {
+  box-shadow: var(--inner-shadow);
+  transform: scale(1.05);
+}
+
+/*************************************************
+ * ARROW BUTTONS (ABSOLUTE POSITION)
+ *************************************************/
+.arrow-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--dark-lavender);
+  border: 2px solid var(--light-lavender);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--outer-shadow);
+  transition: transform var(--transition-speed) ease;
+  z-index: 2;
+}
+
+.arrow-button svg {
+  color: var(--light-lavender);
+  width: 16px;
+  height: 16px;
+}
+
+.arrow-button:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: var(--deep-lavender);
+}
+.arrow-button:active {
+  box-shadow: var(--inner-shadow);
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Left vs. Right arrow placement */
+.arrow-button.left {
+  left: 0.5rem;
+}
+.arrow-button.right {
+  right: 0.5rem;
+}
+
+/* Arrow button container for expanded mode */
+.arrow-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem;
+  position: relative;
+  z-index: 3;
+}
+
+.arrow-button-container .arrow-button {
+  position: relative;
+  transform: none;
+  top: auto;
+  left: auto;
+  right: auto;
+}
+
+/*************************************************
+ * SWIPE INDICATOR (left-aligned text)
+ *************************************************/
+.swipe-indicator {
+  text-align: left;
+  margin-left: -15rem; /* Add left margin for spacing */
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.swipe-indicator p {
+  margin: 0;
+}
+
+/*************************************************
+ * MOBILE TWEAKS
+ *************************************************/
+@media screen and (max-width: 480px) {
   .customization-toolbar {
-    position: relative;
-    display: flex;
-    align-items: center;
-  
-    /* Clay look: gradient + soft shadow */
-    background: linear-gradient(
-      145deg,
-      var(--primary-lavender),
-      var(--light-lavender)
-    );
-    border-radius: 1rem;
-    box-shadow: var(--outer-shadow);
-    transition: all var(--transition-speed) ease;
-  
-    /* Some padding so content doesn't stick to edges */
-    padding: 0.5rem 1rem;
-    overflow: hidden; /* Because arrows are inside, we can safely hide overflow */
+    padding: 0.5rem;
   }
-  
-  /* Keep the same clay style whether expanded or not */
-  .customization-toolbar.expanded,
-  .customization-toolbar:not(.expanded) {
-    background: linear-gradient(
-      145deg,
-      var(--primary-lavender),
-      var(--light-lavender)
-    );
-    box-shadow: var(--outer-shadow);
-  }
-  
-  /*********************************************
-   * TOOLS CONTAINER
-   *********************************************/
-  .tools-container {
-    display: flex;
-    align-items: center;
-    flex: 1; /* push arrow(s) aside, so container can expand */
-    justify-content: center; /* center the icons or scroller */
-  }
-  
-  /* Collapsed icons row */
-  .collapsed-icons {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-  }
-  
-  /*********************************************
-   * EXPANDED CONTENT & SWIPE SCROLL
-   *********************************************/
-  .expanded-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; /* fill available space */
-    gap: 0.5rem; /* space between scroller & indicator */
-  }
-  
-  /* Horizontally scrollable container for color pickers */
-  .tools-scroll-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto; /* key for horizontal scroll on mobile */
-    -webkit-overflow-scrolling: touch;
-    gap: 1rem;
-    scroll-snap-type: x mandatory; /* optional "snap" effect */
-    width: 100%;
-    padding: 0.5rem 0;
-  }
-  
-  /* Each toolbar row is an item in the horizontal scroller */
-  .toolbar-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  
-    /* Clay look again inside each row */
-    background: linear-gradient(
-      145deg,
-      var(--primary-lavender),
-      var(--light-lavender)
-    );
-    border-radius: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    box-shadow: var(--outer-shadow);
-  
-    flex: 0 0 auto;        /* don't shrink, so they line up horizontally */
-    scroll-snap-align: start;
-    transition: box-shadow var(--transition-speed) ease;
-  }
-  
-  /* Hover effect for each row */
-  .toolbar-row:hover {
-    box-shadow: var(--inner-shadow);
-  }
-  
-  /*********************************************
-   * COLOR PICKER & BUTTONS
-   *********************************************/
-  .toolbar-row input[type="color"] {
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 50%;
-    background: transparent;
-    box-shadow: var(--inner-shadow);
-    cursor: pointer;
-    transition: transform var(--transition-speed) ease;
-  }
-  .toolbar-row input[type="color"]:hover {
-    transform: scale(1.05);
-  }
-  
-  .toolbar-row button {
-    background: var(--dark-lavender);
-    color: var(--light-lavender);
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.25rem 0.5rem;
-    cursor: pointer;
-    box-shadow: var(--outer-shadow);
-    transition: transform var(--transition-speed) ease;
-  }
-  .toolbar-row button:hover {
-    box-shadow: var(--inner-shadow);
-    transform: scale(1.05);
-  }
-  
-  /*********************************************
-   * ARROW BUTTONS
-   *********************************************/
+
   .arrow-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  
-    background: var(--dark-lavender);
-    border: 2px solid var(--light-lavender);
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: var(--outer-shadow);
-    transition: transform var(--transition-speed) ease;
-    z-index: 2;
+    width: 32px;
+    height: 32px;
   }
-  
+
   .arrow-button svg {
-    color: var(--light-lavender);
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
-  
-  .arrow-button:hover {
-    transform: translateY(-50%) scale(1.1);
-    background: var(--deep-lavender);
+
+  .tools-scroll-container {
+    gap: 0.75rem;
   }
-  .arrow-button:active {
-    box-shadow: var(--inner-shadow);
-    transform: translateY(-50%) scale(0.95);
-  }
-  
-  /* Left arrow (expanded mode) inside container bounds */
-  .arrow-button.left {
-    left: 0.5rem;
-  }
-  
-  /* Right arrow (collapsed mode) inside container bounds */
-  .arrow-button.right {
-    right: 0.5rem;
-  }
-  
-  /*********************************************
-   * SWIPE INDICATOR
-   *********************************************/
-  .swipe-indicator {
-    font-size: 0.75rem;
-    opacity: 0.7;
-    text-align: center;
-  }
-  .swipe-indicator p {
-    margin: 0;
-  }
-  
-  /*********************************************
-   * MOBILE ADJUSTMENTS
-   *********************************************/
-  @media screen and (max-width: 480px) {
-    .customization-toolbar {
-      padding: 0.5rem;
-    }
-  
-    .arrow-button {
-      width: 32px;
-      height: 32px;
-    }
-  
-    .arrow-button svg {
-      width: 18px;
-      height: 18px;
-    }
-  
-    .tools-scroll-container {
-      gap: 0.75rem;
-    }
-  
-    .toolbar-row {
-      padding: 0.5rem;
-    }
-  }
-  
+}
