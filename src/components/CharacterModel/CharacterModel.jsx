@@ -48,7 +48,7 @@ export function CharacterModel({
     >
       <Canvas
         camera={{
-          fov: 40,
+          fov: 50,
           position: [0, 1, 4],
           near: 0.1,
           far: 1000,

@@ -1,0 +1,108 @@
+/* src/components/CameraScanner/camerascanner.css */
+.camera-scanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--light-lavender);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .camera-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .close-btn {
+    background: var(--primary-lavender);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--outer-shadow);
+  }
+  
+  .camera-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .webcam-preview {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--outer-shadow);
+  }
+  
+  .camera-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .capture-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--dark-lavender);
+    border: 3px solid var(--light-lavender);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--outer-shadow);
+  }
+  
+  .capture-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .preview-container {
+    width: 100%;
+    max-width: 720px;
+    position: relative;
+  }
+  
+  .captured-preview {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--outer-shadow);
+  }
+  
+  .preview-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .retake-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: var(--dark-lavender);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--outer-shadow);
+  }
