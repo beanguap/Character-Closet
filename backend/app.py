@@ -30,3 +30,16 @@ try:
 except Exception as e:
     logger.error(f"Failed to initialize detector: {str(e)}")
     raise
+
+@app.route('/api/detect-outfit', methods=['POST'])
+def detect_outfit():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image provided'}), 400
+    image = request.files['image']
+    image_bytes = image.read()
+    try:
+        results = detector.detect_multiple_items(image_bytes)
+        return jsonify({'detectedItems': results}), 200
+    except Exception as e:
+        logger.error(f"Detection error: {str(e)}")
+        return jsonify({'error': 'Detection failed'}), 500

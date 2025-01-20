@@ -2,6 +2,7 @@
 import React, { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 import { Camera, X } from "lucide-react";
+import { detectOutfit } from "../../config/api";
 import "./camerascanner.css";
 
 const CameraScanner = ({ onCapture, onClose }) => {
@@ -29,8 +30,8 @@ const CameraScanner = ({ onCapture, onClose }) => {
       const blob = await response.blob();
       const file = new File([blob], "capture.jpg", { type: "image/jpeg" });
 
-      // Send to parent for processing
-      await onCapture(file);
+      const results = await detectOutfit(file);
+      onCapture(results.detectedItems);
     } catch (error) {
       console.error("Capture failed:", error);
     } finally {
