@@ -1,7 +1,7 @@
 // src/pages/OutfitDetection/OutfitDetection.jsx
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Camera } from 'lucide-react';
+import { Camera, Upload } from 'lucide-react'; // Add Upload icon
 import { detectOutfit } from '../../config/api';
 import CameraScanner from '../../components/CameraScanner/CameraScanner';
 import TopBar from '../../components/TopBar/TopBar';
@@ -30,7 +30,7 @@ const OutfitDetection = () => {
     await handleCapture(file);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <div className="outfit-detection">
@@ -38,7 +38,6 @@ const OutfitDetection = () => {
       
       <div className="detection-content">
         <div className="detection-tools">
-          {/* Camera Scanner */}
           {showCamera ? (
             <CameraScanner 
               onCapture={handleCapture}
@@ -46,13 +45,19 @@ const OutfitDetection = () => {
             />
           ) : (
             <>
-              {/* Upload Zone */}
-              <div {...getRootProps()} className="upload-zone">
-                <input {...getInputProps()} />
-                <p>Drag & drop an image here, or click to select one</p>
+              <div className="dropzone-container">
+                <div {...getRootProps()} className={`upload-zone ${isDragActive ? 'active' : ''}`}>
+                  <input {...getInputProps()} />
+                  <Upload size={32} className="upload-icon" />
+                  <p className="upload-text">
+                    {isDragActive 
+                      ? 'Drop the image here...'
+                      : 'Drag & drop an image here, or click to select'}
+                  </p>
+                  <p className="upload-hint">Supported formats: PNG, JPG</p>
+                </div>
               </div>
 
-              {/* Scanner Button */}
               <button 
                 className="scanner-btn"
                 onClick={() => setShowCamera(true)}
@@ -61,8 +66,8 @@ const OutfitDetection = () => {
                 Open Camera Scanner
               </button>
 
-              {/* Results Section */}
               {error && <div className="error-message">{error}</div>}
+              {/* Results Section */}
               {detectedItems.length > 0 && (
                 <div className="scanned-items-container">
                   <h3 className="scanned-items-title">Detected Items</h3>
@@ -82,7 +87,6 @@ const OutfitDetection = () => {
           )}
         </div>
       </div>
-
       <BottomNav />
     </div>
   );
