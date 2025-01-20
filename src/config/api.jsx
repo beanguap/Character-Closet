@@ -7,15 +7,21 @@ export const detectOutfit = async (imageFile, confidenceThreshold = 0.5) => {
   formData.append('image', imageFile);
   formData.append('confidenceThreshold', confidenceThreshold.toString());
 
-  const response = await fetch(`${API_BASE_URL}/detect-outfit`, {
-    method: 'POST',
-    body: formData,
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/detect-outfit`, {
+      method: 'POST',
+      body: formData,
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.error || 'Failed to detect outfit');
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to detect outfit');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('API Error:', error);
+    throw error;
   }
-
-  return response.json();
 };

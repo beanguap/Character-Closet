@@ -12,15 +12,28 @@ const OutfitDetection = () => {
   const [detectedItems, setDetectedItems] = useState([]);
   const [error, setError] = useState(null);
   const [showCamera, setShowCamera] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handleCapture = async (file) => {
+    setIsLoading(true);
+    setError(null);
+    
     try {
       const results = await detectOutfit(file);
       setDetectedItems(results.detectedItems);
-      setShowCamera(false);
+      
+      // Create preview URL for the image
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        setPreviewImage(imageUrl);
+      }
     } catch (err) {
       setError('Failed to detect outfit. Please try again.');
       console.error('Outfit detection error:', err);
+    } finally {
+      setIsLoading(false);
+      setShowCamera(false);
     }
   };
 
@@ -30,7 +43,13 @@ const OutfitDetection = () => {
     await handleCapture(file);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
+    onDrop,
+    accept: {
+      'image/*': ['.jpeg', '.jpg', '.png']
+    },
+    maxSize: 5242880 // 5MB
+  });
 
   return (
     <div className="outfit-detection">
@@ -61,13 +80,21 @@ const OutfitDetection = () => {
               <button 
                 className="scanner-btn"
                 onClick={() => setShowCamera(true)}
+                disabled={isLoading}
               >
                 <Camera size={20} className="icon" />
-                Open Camera Scanner
+                {isLoading ? 'Processing...' : 'Open Camera Scanner'}
               </button>
 
+              {/* Preview and Results Section */}
+              {previewImage && (
+                <div className="preview-container">
+                  <img src={previewImage} alt="Uploaded" className="preview-image" />
+                </div>
+              )}
+
               {error && <div className="error-message">{error}</div>}
-              {/* Results Section */}
+
               {detectedItems.length > 0 && (
                 <div className="scanned-items-container">
                   <h3 className="scanned-items-title">Detected Items</h3>
