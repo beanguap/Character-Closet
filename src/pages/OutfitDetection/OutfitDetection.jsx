@@ -84,18 +84,20 @@ const OutfitDetection = () => {
             </button>
           )}
 
-          {/* Display detected items */}
+          {/* Show only the scanned items container */}
           {detectedItems.length > 0 && (
-            <div className="detected-items">
-              <h3>Detected Items:</h3>
-              {detectedItems.map((item, index) => (
-                <div key={index} className="detected-item">
-                  <span className="item-label">{item.label}</span>
-                  <span className="item-confidence">
-                    {(item.confidence * 100).toFixed(1)}%
-                  </span>
-                </div>
-              ))}
+            <div className="scanned-items-container">
+              <h4 className="scanned-items-title">Recent Scans</h4>
+              <div className="scanned-items-list">
+                {detectedItems.slice(0, 3).map((item, index) => (
+                  <div key={index} className="scanned-item">
+                    <span className="item-label">{item.label}</span>
+                    <span className="item-confidence">
+                      {(item.confidence * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
