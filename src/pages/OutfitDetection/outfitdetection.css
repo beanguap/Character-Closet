@@ -45,4 +45,132 @@
 
 .scanner-btn {
   margin-top: 1rem;
+  width: 100%;
+  max-width: 280px;
+  padding: 1rem;
+  background: linear-gradient(145deg, var(--primary-lavender), var(--light-lavender));
+  border: none;
+  border-radius: 15px;
+  box-shadow: var(--outer-shadow);
+  color: var(--dark-lavender);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.scanner-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--inner-shadow);
+}
+
+.scanner-btn .icon {
+  color: var(--dark-lavender);
+}
+
+.outfit-detection {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 60px 1rem 80px 1rem; /* Increased bottom padding */
+  background: var(--light-lavender);
+  overflow: hidden;
+  position: relative; /* Add this to ensure proper stacking context */
+}
+
+/* Add styles for bottom nav positioning */
+.outfit-detection .bottom-nav {
+  position: fixed;
+  bottom: 20px; /* Match home page bottom spacing */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  z-index: 100;
+}
+
+.detection-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0.25rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+}
+
+.scanned-items-container {
+  width: 100%;
+  max-width: 280px;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: linear-gradient(145deg, var(--primary-lavender), var(--light-lavender));
+  border-radius: 15px;
+  box-shadow: var(--outer-shadow);
+}
+
+.scanned-items-title {
+  color: var(--dark-lavender);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.scanned-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.scanned-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.item-label {
+  color: var(--dark-lavender);
+  font-weight: 500;
+}
+
+.item-confidence {
+  color: var(--lavender-gray);
+  font-size: 0.9rem;
+}
+
+.error-message {
+  width: 100%;
+  max-width: 280px;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  color: #d32f2f;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  .outfit-detection {
+    padding: 55px 0.5rem 75px 0.5rem; /* Adjusted padding for mobile */
+  }
+
+  .detection-content {
+    margin: 0.2rem auto;
+    gap: 0.4rem;
+  }
+
+  .outfit-detection .bottom-nav {
+    bottom: 15px; /* Slightly reduced on mobile */
+  }
 }

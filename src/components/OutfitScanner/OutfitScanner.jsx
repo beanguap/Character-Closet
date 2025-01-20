@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import { Upload, Camera } from 'lucide-react';
-import './OutfitDetection.css';
-import { detectOutfit } from '../config/api';
+import './OutfitScanner.css'; // Update CSS import
+import { detectOutfit } from '../../config/api';
 
 // Create a web worker for image processing
 const worker = new Worker(new URL('./imageProcessor.js', import.meta.url));
@@ -23,7 +23,7 @@ const worker = new Worker(new URL('./imageProcessor.js', import.meta.url));
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
 
-const MediaBoard = () => {
+const OutfitScanner = () => {
   const theme = useTheme();
   const [selectedImage, setSelectedImage] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
@@ -218,4 +218,4 @@ const MediaBoard = () => {
   );
 };
 
-export default MediaBoard;
+export default OutfitScanner;
