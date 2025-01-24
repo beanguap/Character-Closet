@@ -8,11 +8,21 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def load_model(model_path):
+    try:
+        # Use tf.keras.models.save_model() to save the model first
+        model = tf.keras.models.load_model(model_path, compile=False)
+        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        return model
+    except Exception as e:
+        logger.error(f"Error loading model: {str(e)}")
+        raise
+
 class OutfitDetector:
     def __init__(self, model_path: str):
         """Initialize the outfit detector with a trained model."""
         try:
-            self.model = tf.keras.models.load_model(model_path)
+            self.model = load_model(model_path)
             logger.info("Model loaded successfully")
         except Exception as e:
             logger.error(f"Error loading model: {str(e)}")

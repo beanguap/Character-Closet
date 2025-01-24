@@ -31,6 +31,8 @@ except Exception as e:
     logger.error(f"Failed to initialize detector: {str(e)}")
     raise
 
+detector = OutfitDetector(app.config['MODEL_PATH'])
+
 @app.route('/api/detect-outfit', methods=['POST'])
 def detect_outfit():
     if 'image' not in request.files:
