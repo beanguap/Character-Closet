@@ -83,7 +83,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Ready to explore the fashion of your favorite characters? [Get started now](#-quick-start) with the Outfit Identification and Customization App!
-
---- 
-
-Let me know if there's anything specific you'd like to adjust!
